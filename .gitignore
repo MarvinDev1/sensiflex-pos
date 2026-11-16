@@ -1,0 +1,17 @@
+# Environment configuration files
+.env
+
+# Installer and package lock files
+installed.lock
+
+# Operating system generated files
+.DS_Store
+Thumbs.db
+
+# XAMPP / Local temporary or log files
+*.log
+error_log
+
+# IDE or editor specific files
+.vscode/
+.idea/
