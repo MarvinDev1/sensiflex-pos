@@ -78,8 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <div class="hero">
-        <div class="form-box" style="min-height: 480px;">
+    <!-- Mobile layout: hero padding keeps reset cards off physical screen edges. -->
+    <div class="hero w-full min-h-screen overflow-x-hidden px-4 sm:px-6 box-border">
+        <div class="form-box w-full max-w-md mx-auto box-border" style="min-height: 480px;">
             <!-- Brand Logo Header -->
             <div class="logo-container">
                 <img src="gallary/logo.png" alt="Sensiflex Logo" class="brand-logo">
@@ -95,25 +96,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             <?php endif; ?>
 
-            <form action="reset_password.php" method="POST" class="space-y-4">
+            <form action="reset_password.php" method="POST" class="w-full max-w-full min-w-0 space-y-4">
                 <input type="hidden" name="email" value="<?php echo htmlspecialchars($email); ?>">
 
                 <!-- New Password Field with Eye Toggle Icon -->
-                <div class="password-container">
-                    <input type="password" name="new_password" class="input-field" id="new-password" placeholder="New Password" required>
+                <div class="password-container w-full max-w-full">
+                    <input type="password" name="new_password" class="input-field w-full max-w-full min-w-0 box-border pr-8" id="new-password" placeholder="New Password" required>
                     <img src="gallary/eye.png" alt="Toggle Password" class="eye-icon slashed" onclick="togglePassword('new-password', this)">
                 </div>
 
                 <!-- Confirm Password Field with Eye Toggle Icon -->
-                <div class="password-container">
-                    <input type="password" name="confirm_password" class="input-field" id="confirm-password" placeholder="Confirm New Password" required>
+                <div class="password-container w-full max-w-full">
+                    <input type="password" name="confirm_password" class="input-field w-full max-w-full min-w-0 box-border pr-8" id="confirm-password" placeholder="Confirm New Password" required>
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="submit-btn" style="margin-top: 20px;">Update Password & Log In</button>
+                <button type="submit" class="submit-btn w-full max-w-full min-w-0" style="margin-top: 20px;">Update Password &amp; Log In</button>
             </form>
 
-            <div class="remember-row" style="justify-content: center; margin-top: 20px;">
+            <div class="remember-row w-full max-w-full" style="justify-content: center; margin-top: 20px;">
                 <a href="index.php">← Cancel and Back to Log In</a>
             </div>
         </div>

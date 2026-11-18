@@ -39,10 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center font-sans antialiased">
+<body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center font-sans antialiased px-4 py-5 box-border">
 
     <!-- Logout Confirmation Dialog Box -->
-    <div class="form-box" style="min-height: 380px; width: 400px; text-align: center; display: flex; flex-direction: column; justify-content: center;">
+    <div class="form-box w-full max-w-md mx-auto box-border" style="min-height: 380px; text-align: center; display: flex; flex-direction: column; justify-content: center;">
         
         <!-- Brand Logo Header -->
         <div class="logo-container" style="margin-bottom: 15px;">
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
         <p style="font-size: 13px; color: #94a3b8; margin-bottom: 25px;">Are you sure you want to log out of the SENSIFLEX Control Center?</p>
 
         <!-- Logout Form Actions -->
-        <form action="logout.php" method="POST" class="space-y-3">
+        <form action="logout.php" method="POST" class="w-full max-w-full box-border space-y-3">
             <input type="hidden" name="confirm_logout" value="1">
             
             <button type="submit" class="submit-btn" style="background: linear-gradient(to right, #dc2626, #ef4444); margin-bottom: 10px;">
