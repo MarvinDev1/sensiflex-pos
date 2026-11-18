@@ -612,3 +612,10 @@ function renderCart() {
 function prepareCheckout() {
     document.getElementById('cart-items-json').value = JSON.stringify(activeCart);
 }
+
+// FIX: Initialize the orange slash for password fields that start hidden on every authentication view.
+document.querySelectorAll('.eye-icon.slashed').forEach(function (iconElement) {
+    if (iconElement.parentElement) {
+        iconElement.parentElement.classList.add('has-slash');
+    }
+});

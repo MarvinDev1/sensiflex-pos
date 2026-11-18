@@ -220,9 +220,29 @@ html, body {
     left: 25px;
 }
 
+/* Password eye slash: an orange line clearly indicates that the password is currently hidden. */
 .password-container {
     position: relative;
-    width: 100%;
+}
+
+.password-container::after {
+    content: "";
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    width: 24px;
+    height: 3px;
+    border-radius: 999px;
+    background: #f97316;
+    transform: translateY(-50%) rotate(-45deg) scaleX(0);
+    transform-origin: center;
+    z-index: 20;
+    pointer-events: none;
+    transition: transform 0.18s ease;
+}
+
+.password-container.has-slash::after {
+    transform: translateY(-50%) rotate(-45deg) scaleX(1);
 }
 
 .eye-icon {
@@ -236,6 +256,7 @@ html, body {
     filter: invert(1);
     opacity: 0.7;
     transition: opacity 0.3s ease, transform 0.15s ease;
+    z-index: 10;
 }
 
 .eye-icon:hover {
