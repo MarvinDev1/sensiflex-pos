@@ -308,10 +308,10 @@ html, body {
         overflow-x: hidden;
     }
 
-    /* Mobile: cap the card and center it inside the padded hero so left/right edges never touch. */
+    /* Mobile: the 20px hero padding and auto margins keep the card fully inside the physical screen. */
     .form-box {
         width: 100% !important;
-        max-width: 320px !important;
+        max-width: 340px !important;
         margin: 0 auto !important;
         left: auto !important;
         right: auto !important;
@@ -319,11 +319,13 @@ html, body {
         padding: 20px !important;
     }
 
-    /* Mobile: all forms and controls use the card's actual usable inner width. */
+    /* Mobile: equal insets keep every login, register, and forgot-password form safely inside the card. */
     .form-box > form,
     .input-group {
+        position: absolute;
         width: calc(100% - 40px) !important;
         max-width: 100%;
+        right: 20px;
         box-sizing: border-box;
         min-width: 0;
     }
@@ -333,6 +335,7 @@ html, body {
     #register.input-group.active,
     #forgot.input-group.active {
         left: 20px !important;
+        right: auto;
     }
 
     .input-field,
@@ -349,5 +352,13 @@ html, body {
     .remember-row {
         white-space: normal;
         flex-wrap: wrap;
+    }
+
+    /* Non-sliding authentication cards use the card's full padded content width. */
+    .form-box > form:not(.input-group) {
+        position: relative;
+        width: 100% !important;
+        left: auto !important;
+        right: auto !important;
     }
 }
