@@ -45,7 +45,7 @@ html, body {
     background-position: center;
     background-size: cover;
     position: relative;
-    padding: 20px; /* Safe outer padding around the whole screen */
+    padding: 20px;
 }
 
 .form-box {
@@ -220,7 +220,6 @@ html, body {
     left: 25px;
 }
 
-/* Password eye slash: an orange line clearly indicates that the password is currently hidden. */
 .password-container {
     position: relative;
 }
@@ -291,7 +290,6 @@ html, body {
 
 /* FOOLPROOF MOBILE RESPONSIVE FIX (Screens under 768px) */
 @media (max-width: 768px) {
-    /* Mobile: keep every auth card centered with safe space on all sides and allow vertical scrolling. */
     html,
     body {
         width: 100%;
@@ -302,16 +300,17 @@ html, body {
     .hero {
         min-height: 100svh;
         height: auto;
-        padding: 24px 20px !important;
+        padding: 16px !important;
         width: 100% !important;
         box-sizing: border-box;
         overflow-x: hidden;
     }
 
-    /* Mobile: the 20px hero padding and auto margins keep the card fully inside the physical screen. */
+    /* Override the 380px desktop width so it scales fluidly and centers with margins */
     .form-box {
-        width: 100% !important;
-        max-width: 340px !important;
+        width: 92% !important;
+        max-width: 330px !important;
+        min-height: 540px !important;
         margin: 0 auto !important;
         left: auto !important;
         right: auto !important;
@@ -319,7 +318,6 @@ html, body {
         padding: 20px !important;
     }
 
-    /* Mobile: equal insets keep every login, register, and forgot-password form safely inside the card. */
     .form-box > form,
     .input-group {
         position: absolute;
@@ -354,7 +352,6 @@ html, body {
         flex-wrap: wrap;
     }
 
-    /* Non-sliding authentication cards use the card's full padded content width. */
     .form-box > form:not(.input-group) {
         position: relative;
         width: 100% !important;
