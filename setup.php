@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>SENSIFLEX - One-Time Installer</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="max-w-full overflow-x-hidden">
     <div class="hero w-full min-h-screen overflow-x-hidden px-4 sm:px-6 box-border">
         <div class="form-box w-[92%] sm:w-full max-w-md mx-auto box-border" style="min-height: auto; padding-bottom: 30px;">
             <div class="logo-container">

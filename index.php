@@ -69,7 +69,7 @@ if (isset($_GET['success'])) {
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="max-w-full overflow-x-hidden">
     <div class="hero w-full min-h-screen px-4 sm:px-6 box-border overflow-x-hidden">
         <div class="form-box w-[92%] sm:w-full max-w-md mx-auto box-border">
             <div class="logo-container">
@@ -82,7 +82,7 @@ if (isset($_GET['success'])) {
                 <button type="button" class="toggle-btn" onclick="clearAuthAlerts(); register();">Register</button>
             </div>
             
-            <form id="login" class="input-group<?php echo $active_form === 'login' ? ' active' : ''; ?>" action="auth.php" method="POST">
+            <form id="login" class="input-group w-full max-w-full box-border<?php echo $active_form === 'login' ? ' active' : ''; ?>" action="auth.php" method="POST">
                 <input type="hidden" name="login_action" value="1">
                 <div id="login-alert" class="alert-box <?php echo $login_type === 'success' ? 'success' : ($login_type === 'error' ? 'error' : ''); ?>" style="display: <?php echo !empty($login_message) ? 'block' : 'none'; ?>;">
                 <?php echo htmlspecialchars($login_message); ?>
@@ -104,7 +104,7 @@ if (isset($_GET['success'])) {
                 <button type="submit" class="submit-btn">Log in</button>
             </form>
 
-            <form id="register" class="input-group<?php echo $active_form === 'register' ? ' active' : ''; ?>" action="auth.php" method="POST">
+            <form id="register" class="input-group w-full max-w-full box-border<?php echo $active_form === 'register' ? ' active' : ''; ?>" action="auth.php" method="POST">
                 <input type="hidden" name="register_action" value="1">
                 <div id="register-alert" class="alert-box <?php echo $register_type === 'success' ? 'success' : ($register_type === 'error' ? 'error' : ''); ?>" style="display: <?php echo !empty($register_message) ? 'block' : 'none'; ?>;">
                 <?php echo htmlspecialchars($register_message); ?>
@@ -128,7 +128,7 @@ if (isset($_GET['success'])) {
                 <button type="submit" class="submit-btn">Register &amp; Verify Email</button>
             </form>
 
-            <form id="forgot" class="input-group<?php echo $active_form === 'forgot' ? ' active' : ''; ?>" action="auth.php" method="POST">
+            <form id="forgot" class="input-group w-full max-w-full box-border<?php echo $active_form === 'forgot' ? ' active' : ''; ?>" action="auth.php" method="POST">
                 <input type="hidden" name="forgot_action" value="1">
                 <div id="forgot-alert" class="alert-box <?php echo $forgot_type === 'success' ? 'success' : ($forgot_type === 'error' ? 'error' : ''); ?>" style="display: <?php echo !empty($forgot_message) ? 'block' : 'none'; ?>;">
                     <?php echo htmlspecialchars($forgot_message); ?>

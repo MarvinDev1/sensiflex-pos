@@ -108,7 +108,7 @@ try {
     <!-- Chart.js CDN for Business Intelligence Curves, Graphs, and Pie Charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen font-sans flex antialiased">
+<body class="bg-slate-100 text-slate-800 min-h-screen max-w-full overflow-x-hidden font-sans flex antialiased">
 
     <!-- Mobile Floating Hamburger Button -->
     <button id="hamburger-btn" onclick="toggleSidebar()" class="lg:hidden fixed top-4 left-4 z-50 bg-[#f97316] text-white p-3 rounded-2xl shadow-lg hover:bg-orange-600 transition flex items-center justify-center focus:outline-none">
@@ -217,27 +217,27 @@ try {
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
                 
                 <!-- Chart 1: Revenue Trend Curve (Line Chart taking 2 columns) -->
-                <div class="lg:col-span-2 bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <h3 class="text-lg font-extrabold text-slate-900">Sales Revenue Trend (Last 7 Active Days)</h3>
-                            <p class="text-xs text-slate-500 font-medium">Daily cumulative turnover curve (UGX)</p>
+                <div class="lg:col-span-2 bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between min-w-0 max-w-full overflow-hidden">
+                    <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+                        <div class="min-w-0">
+                            <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">Sales Revenue Trend</h3>
+                            <p class="text-sm text-slate-500 font-medium">Daily cumulative turnover curve (UGX)</p>
                         </div>
                         <span class="bg-emerald-50 text-[#056847] text-xs font-bold px-3 py-1 rounded-lg border border-emerald-200">Curve Analysis</span>
                     </div>
-                    <div class="relative h-72 w-full">
-                        <canvas id="salesTrendChart"></canvas>
+                    <div class="relative h-64 sm:h-72 w-full max-w-full min-w-0 overflow-hidden">
+                        <canvas id="salesTrendChart" class="max-w-full"></canvas>
                     </div>
                 </div>
 
                 <!-- Chart 2: Serialized Stock Status (Doughnut / Pie Chart) -->
                 <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
                     <div class="mb-4">
-                        <h3 class="text-lg font-extrabold text-slate-900">Hardware Serial Status</h3>
-                        <p class="text-xs text-slate-500 font-medium">In-Stock vs Sold Unit Distribution</p>
+                        <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">Hardware Serial Status</h3>
+                        <p class="text-sm text-slate-500 font-medium">In-Stock vs Sold Unit Distribution</p>
                     </div>
-                    <div class="relative h-60 w-full flex items-center justify-center">
-                        <canvas id="serialStatusChart"></canvas>
+                    <div class="relative h-56 sm:h-60 w-full max-w-full min-w-0 flex items-center justify-center overflow-hidden">
+                        <canvas id="serialStatusChart" class="max-w-full"></canvas>
                     </div>
                 </div>
 
@@ -247,16 +247,16 @@ try {
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 
                 <!-- Chart 3: Product Category Stock Volume (Bar Graph) -->
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm">
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <h3 class="text-lg font-extrabold text-slate-900">Inventory Volume by Category</h3>
-                            <p class="text-xs text-slate-500 font-medium">Stock levels across security hardware categories</p>
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm min-w-0 max-w-full overflow-hidden">
+                    <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+                        <div class="min-w-0">
+                            <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">Inventory Volume by Category</h3>
+                            <p class="text-sm text-slate-500 font-medium">Stock levels across security hardware categories</p>
                         </div>
                         <span class="bg-orange-50 text-[#f97316] text-xs font-bold px-3 py-1 rounded-lg border border-orange-200">Bar Graph</span>
                     </div>
-                    <div class="relative h-64 w-full">
-                        <canvas id="categoryStockChart"></canvas>
+                    <div class="relative h-56 sm:h-64 w-full max-w-full min-w-0 overflow-hidden">
+                        <canvas id="categoryStockChart" class="max-w-full"></canvas>
                     </div>
                 </div>
 
@@ -274,7 +274,7 @@ try {
                         </div>
 
                         <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
+                            <table class="w-full min-w-[520px] text-left border-collapse">
                                 <thead>
                                     <tr class="border-b border-slate-200 text-xs font-bold uppercase tracking-wider text-slate-600 bg-slate-50/70">
                                         <th class="py-2.5 px-3">Name</th>
@@ -326,8 +326,8 @@ try {
                     </a>
                 </div>
 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
+                <div class="w-full max-w-full overflow-x-auto overscroll-contain">
+                    <table class="w-full min-w-[720px] text-left border-collapse">
                         <thead>
                             <tr class="border-b border-slate-200 text-xs font-bold uppercase tracking-wider text-slate-600 bg-slate-50/70">
                                 <th class="py-3 px-4">Serial Number</th>

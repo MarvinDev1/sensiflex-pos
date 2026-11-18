@@ -53,7 +53,7 @@ try {
     <!-- Tailwind CSS CDN for high-end Bento Grid utility styling -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen font-sans flex antialiased">
+<body class="bg-slate-100 text-slate-800 min-h-screen max-w-full overflow-x-hidden font-sans flex antialiased">
 
     <!-- Mobile Floating Amber/Orange Hamburger Button -->
     <button id="hamburger-btn" onclick="toggleSidebar()" class="lg:hidden fixed top-4 left-4 z-50 bg-[#f97316] text-white p-3 rounded-2xl shadow-lg hover:bg-orange-600 transition flex items-center justify-center focus:outline-none">

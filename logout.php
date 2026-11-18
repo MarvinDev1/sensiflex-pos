@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center font-sans antialiased px-4 py-5 box-border">
+<body class="bg-slate-900 text-slate-100 min-h-screen max-w-full overflow-x-hidden flex items-center justify-center font-sans antialiased px-4 py-5 box-border">
 
     <!-- Logout Confirmation Dialog Box -->
     <div class="form-box w-[92%] sm:w-full max-w-md mx-auto box-border" style="min-height: 380px; text-align: center; display: flex; flex-direction: column; justify-content: center;">

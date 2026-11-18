@@ -222,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['checkout_action'])) {
     <!-- Include QuaggaJS library for camera barcode scanning support -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen font-sans flex antialiased">
+<body class="bg-slate-100 text-slate-800 min-h-screen max-w-full overflow-x-hidden font-sans flex antialiased">
 
     <!-- Hamburger Toggle Button for Mobile Navigation -->
     <button id="hamburger-btn" onclick="toggleSidebar()" class="lg:hidden fixed top-4 left-4 z-50 bg-[#f97316] text-white p-3 rounded-2xl shadow-lg hover:bg-orange-600 transition flex items-center justify-center focus:outline-none">
@@ -256,9 +256,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['checkout_action'])) {
         <main class="p-4 sm:p-6 lg:p-8 space-y-6 flex-1 max-w-7xl w-full mx-auto box-border">
 
         <!-- Excel Import & Export Action Bar -->
-        <div class="flex flex-wrap gap-4 mb-8 bg-white border border-slate-200/80 p-4 sm:p-5 rounded-2xl shadow-sm items-center justify-between">
+        <div class="flex flex-col sm:flex-row flex-wrap gap-4 mb-8 bg-white border border-slate-200/80 p-4 sm:p-5 rounded-2xl shadow-sm items-stretch sm:items-center justify-between box-border">
             <div class="text-sm font-bold text-slate-900">Inventory Data Tools:</div>
-            <div class="flex gap-4 items-center">
+            <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center w-full sm:w-auto min-w-0">
                 <a href="export_excel.php" class="bg-[#056847] hover:bg-[#045238] text-white text-sm font-bold px-4 py-2 rounded-xl transition shadow-sm">
                     Export to Excel (.csv)
                 </a>
@@ -308,11 +308,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['checkout_action'])) {
             <div class="lg:col-span-2 space-y-4 sm:space-y-6 min-w-0">
                 
                 <!-- 1. Barcode/QR Code & SKU Product Lookup & Live Camera Viewfinder -->
-                <div class="bento-card bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm hover:shadow-md transition space-y-4">
-                    <h2 class="text-lg font-extrabold text-slate-900">Hardware Barcode / SKU Scanner & Camera Viewfinder</h2>
+                <div class="bento-card bg-white border border-slate-200/80 p-4 sm:p-6 rounded-2xl shadow-sm hover:shadow-md transition space-y-4 box-border min-w-0">
+                    <h2 class="text-base sm:text-lg font-extrabold text-slate-900">Hardware Barcode / SKU Scanner &amp; Camera Viewfinder</h2>
 
                     <div class="relative">
-                        <input type="text" id="barcode-input" class="w-full pl-10 pr-4 py-3 border-2 border-[#f97316] rounded-xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-orange-100 shadow-sm" placeholder="Scan Barcode or enter Product Name/SKU..." autofocus>
+                        <input type="text" id="barcode-input" class="w-full min-w-0 box-border pl-10 pr-4 py-3 border-2 border-[#f97316] rounded-xl text-sm sm:text-base font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-orange-100 shadow-sm" placeholder="Scan Barcode or enter Product Name/SKU..." autofocus>
                         <span class="absolute left-3.5 top-3.5 text-slate-400 text-sm">🔍</span>
                     </div>
                     <div id="barcode-search-results" class="hidden mt-2 space-y-2"></div>

@@ -32,7 +32,7 @@ try {
     <!-- QuaggaJS: loaded before script.js so camera scanning is available -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen font-sans flex antialiased">
+<body class="bg-slate-100 text-slate-800 min-h-screen max-w-full overflow-x-hidden font-sans flex antialiased">
 
     <!-- Mobile Floating Amber/Orange Hamburger Button -->
     <button id="hamburger-btn" onclick="toggleSidebar()" class="lg:hidden fixed top-4 left-4 z-50 bg-[#f97316] text-white p-3 rounded-2xl shadow-lg hover:bg-orange-600 transition flex items-center justify-center focus:outline-none">
@@ -53,24 +53,24 @@ try {
     <div class="flex-1 lg:ml-72 flex flex-col min-h-screen page-shell">
 
         <!-- Top Header Bar -->
-        <header class="border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0 z-30 px-6 py-4 flex justify-between items-center shadow-sm">
-            <div class="pl-12 lg:pl-0">
+        <header class="border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0 z-30 px-4 sm:px-6 py-4 flex flex-wrap sm:flex-nowrap justify-between items-center gap-3 shadow-sm">
+            <div class="pl-12 sm:pl-0 min-w-0">
                 <span class="text-xs font-bold uppercase tracking-wider text-[#056847]">Sales Operations</span>
-                <h2 class="text-base font-extrabold text-slate-900">Checkout Terminal</h2>
+                <h2 class="text-sm sm:text-base font-extrabold text-slate-900">Checkout Terminal</h2>
             </div>
-            <div class="flex items-center gap-3 pl-12 lg:pl-0">
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3 max-w-full ml-auto">
                 <a href="<?php echo ($_SESSION['role'] === 'admin') ? 'dashboard.php' : 'staff_dashboard.php'; ?>" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200 transition">← Back to Dashboard</a>
-                <button onclick="document.getElementById('barcode-input').focus()" class="bg-[#f97316] hover:bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md transition flex items-center gap-2">
-                    📷 Focus QR/Barcode Scanner
+                <button onclick="document.getElementById('barcode-input').focus()" class="bg-[#f97316] hover:bg-orange-600 text-white px-3 sm:px-4 py-2 rounded-xl text-xs font-bold shadow-md transition flex items-center gap-2">
+                    📷 Scanner
                 </button>
             </div>
         </header>
 
         <!-- Main Bento Grid Container -->
-        <main class="p-4 sm:p-6 lg:p-8 space-y-6 flex-1 max-w-7xl w-full mx-auto">
+        <main class="p-4 sm:p-6 lg:p-8 space-y-6 flex-1 max-w-7xl w-full mx-auto box-border">
 
             <!-- Page Header Banner -->
-            <div class="bg-gradient-to-r from-[#056847]/10 via-white to-[#f97316]/10 border border-slate-200/80 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm">
+            <div class="bg-gradient-to-r from-[#056847]/10 via-white to-[#f97316]/10 border border-slate-200/80 rounded-2xl p-4 sm:p-6 lg:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm">
                 <div>
                     <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Point of Sale Terminal</h1>
                     <p class="text-slate-600 text-sm mt-1 font-medium">Scan hardware serials/barcodes, calculate discounts, and print sales receipts.</p>
@@ -82,24 +82,26 @@ try {
             </div>
 
             <!-- Bento Grid Layout: Product Catalog (Left) & Sales Cart (Right) -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
 
                 <!-- Left Column: Product Search & Item Catalog (7 Columns) -->
-                <div class="lg:col-span-7 space-y-6">
+                <div class="lg:col-span-7 space-y-4 sm:space-y-6 min-w-0">
 
                     <!-- Barcode & QR Code Fast Scan Box -->
-                    <div class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm space-y-4">
-                        <label class="block text-xs font-bold uppercase tracking-wider text-[#056847]">
+                    <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 shadow-sm space-y-4 box-border min-w-0">
+                        <label class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-[#056847]">
                             ⚡ Rapid QR / Barcode / Serial Scan
                         </label>
                         <div class="relative">
-                            <input type="text" id="barcode-input" class="w-full pl-10 pr-4 py-3 border-2 border-[#f97316] rounded-xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-orange-100 shadow-sm" placeholder="Scan Barcode or enter Product Name/SKU..." autofocus>
+                            <input type="text" id="barcode-input" class="w-full min-w-0 box-border pl-10 pr-4 py-3 border-2 border-[#f97316] rounded-xl text-sm sm:text-base font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-orange-100 shadow-sm" placeholder="Scan Barcode or enter Product Name/SKU..." autofocus>
                             <span class="absolute left-3.5 top-3.5 text-slate-400 text-sm">🔍</span>
                         </div>
                         <div id="barcode-search-results" class="hidden mt-2 space-y-2"></div>
-                        <div class="flex justify-between items-center gap-3">
-                            <span class="text-[11px] text-slate-500 font-medium">Or use phone/laptop camera scanner:</span>
-                            <button type="button" onclick="toggleCameraScanner()" id="cam-toggle-btn" class="bg-slate-100 hover:bg-slate-200 text-xs text-slate-700 font-bold px-3 py-1.5 rounded-lg transition border border-slate-200 shadow-sm">Start Live Camera Scanner</button>
+                        <div class="flex flex-wrap sm:flex-nowrap justify-between items-center gap-3">
+                            <span class="text-xs sm:text-sm text-slate-500 font-medium">Or use phone/laptop camera scanner:</span>
+                            <button type="button" onclick="toggleCameraScanner()" id="cam-toggle-btn" class="bg-slate-100 hover:bg-slate-200 text-xs sm:text-sm text-slate-700 font-bold px-3 py-2 rounded-lg transition border border-slate-200 shadow-sm max-w-full">
+                                Start Live Camera Scanner
+                            </button>
                         </div>
                         <div id="interactive" class="viewport relative w-full h-48 bg-slate-100 border-2 border-[#f97316]/70 rounded-xl overflow-hidden hidden flex items-center justify-center shadow-inner">
                             <div class="text-xs text-slate-500">Initializing Camera Stream...</div>
