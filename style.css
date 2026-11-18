@@ -504,3 +504,120 @@ html, body {
         padding-top: 16px !important;
     }
 }
+
+/* Global mobile viewport safeguards */
+@media (max-width: 767px) {
+    body,
+    .page-shell,
+    main,
+    header,
+    .bento-card,
+    .form-box,
+    .viewport,
+    canvas {
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .page-shell {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    main,
+    .page-shell > header {
+        box-sizing: border-box;
+    }
+
+    .page-shell > header {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+
+    .page-shell > header > div {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .page-shell main,
+    main.page-shell,
+    main[class*="p-"] {
+        box-sizing: border-box;
+    }
+
+    .grid {
+        min-width: 0;
+    }
+
+    .grid > * {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .overflow-x-auto {
+        width: 100%;
+        max-width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        width: 100%;
+        table-layout: auto;
+    }
+
+    th,
+    td {
+        overflow-wrap: anywhere;
+    }
+
+    button,
+    a,
+    input,
+    select,
+    textarea {
+        max-width: 100%;
+    }
+
+    canvas {
+        height: auto !important;
+    }
+
+    .hero {
+        height: auto;
+        min-height: 100dvh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 24px 16px !important;
+    }
+
+    .form-box {
+        width: 92% !important;
+        max-width: 420px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .page-shell .flex.justify-between,
+    .page-shell .flex.items-center.justify-between {
+        flex-wrap: wrap;
+        row-gap: 10px;
+    }
+
+    .page-shell [class*="p-6"],
+    .page-shell [class*="px-6"] {
+        box-sizing: border-box;
+    }
+
+    .page-shell canvas {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}

@@ -55,13 +55,13 @@ try {
     <?php include 'includes/sidebar.php'; ?>
 
     <!-- Main Content Area -->
-    <main class="flex-1 lg:ml-72 p-8 overflow-y-auto bg-slate-100 text-slate-800 page-shell">
-        <header class="flex justify-between items-center mb-8">
-            <div>
-                <h1 class="text-2xl font-bold text-slate-900">Sales History & Itemized Receipts</h1>
+    <main class="flex-1 lg:ml-72 p-4 sm:p-6 lg:p-8 overflow-y-auto overflow-x-hidden bg-slate-100 text-slate-800 page-shell box-border">
+        <header class="flex flex-wrap sm:flex-nowrap justify-between items-start sm:items-center gap-3 mb-6 sm:mb-8">
+            <div class="min-w-0 max-w-full">
+                <h1 class="text-xl sm:text-2xl font-bold text-slate-900">Sales History &amp; Itemized Receipts</h1>
                 <p class="text-sm text-slate-600">Review past transactions, verify cashier attribution, and print warranty receipts.</p>
             </div>
-            <div class="flex items-center gap-3 pl-12 lg:pl-0">
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3 pl-12 lg:pl-0 max-w-full">
                 <a href="<?php echo ($_SESSION['role'] === 'admin') ? 'dashboard.php' : 'staff_dashboard.php'; ?>" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200 transition shadow-xs">
                     <?php echo ($_SESSION['role'] === 'admin') ? '← Back to Dashboard' : '← Back to Staff Dashboard'; ?>
                 </a>

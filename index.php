@@ -70,8 +70,8 @@ if (isset($_GET['success'])) {
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <div class="hero">
-        <div class="form-box">
+    <div class="hero w-full min-h-screen px-4 sm:px-6 box-border overflow-x-hidden">
+        <div class="form-box w-[92%] sm:w-full max-w-md mx-auto box-border">
             <div class="logo-container">
                 <img src="gallary/logo.png" alt="Sensiflex Logo" class="brand-logo">
             </div>

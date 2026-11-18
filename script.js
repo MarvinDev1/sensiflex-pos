@@ -427,65 +427,132 @@ function clearReceiptAndCart() {
     clearQueue();
 }
 
+// FIX: Improve Quagga loading and camera permission handling so mobile scanning works over HTTPS and cleanly falls back to manual SKU entry.
+let quaggaLoadPromise = null;
+
+function ensureQuaggaLoaded() {
+    if (typeof window.Quagga !== 'undefined') {
+        return Promise.resolve(window.Quagga);
+    }
+
+    if (!quaggaLoadPromise) {
+        quaggaLoadPromise = new Promise(function(resolve, reject) {
+            const fallbackScript = document.createElement('script');
+            fallbackScript.src = 'https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js';
+            fallbackScript.async = true;
+            fallbackScript.onload = function() {
+                if (typeof window.Quagga !== 'undefined') resolve(window.Quagga);
+                else reject(new Error('QuaggaJS did not initialize.'));
+            };
+            fallbackScript.onerror = function() {
+                reject(new Error('QuaggaJS could not be downloaded.'));
+            };
+            document.head.appendChild(fallbackScript);
+        });
+    }
+
+    return quaggaLoadPromise;
+}
+
+function resetCameraScannerUI(viewport, btn) {
+    cameraActive = false;
+    if (viewport) viewport.classList.add('hidden');
+    if (btn) btn.textContent = 'Start Live Camera Scanner';
+}
+
+function useManualBarcodeEntry(input, feedback) {
+    if (input) {
+        input.focus();
+        input.placeholder = 'Type or scan the barcode/SKU manually';
+    }
+    if (feedback) {
+        feedback.textContent = 'Camera scanner unavailable. You can enter the barcode or SKU manually.';
+        feedback.className = 'mt-3 text-sm text-amber-700';
+    }
+}
+
 // Live Camera Viewfinder Toggle & Scanner Initialization
-function toggleCameraScanner() {
-    const { viewport, btn, input } = getSharedScannerContext();
+async function toggleCameraScanner() {
+    const { viewport, btn, input, feedback } = getSharedScannerContext();
     if (!viewport || !btn) return;
 
-    if (!cameraActive) {
-        viewport.classList.remove('hidden');
-        btn.textContent = 'Stop Camera Scanner';
-        cameraActive = true;
+    if (cameraActive) {
+        if (typeof window.Quagga !== 'undefined') {
+            try { window.Quagga.stop(); } catch (error) { console.warn(error); }
+        }
+        resetCameraScannerUI(viewport, btn);
+        return;
+    }
 
-        if (!window.Quagga) {
-            console.warn('QuaggaJS is not loaded on this page.');
-            alert('Camera scanner is unavailable because QuaggaJS is not loaded.');
-            cameraActive = false;
-            btn.textContent = 'Start Live Camera Scanner';
-            viewport.classList.add('hidden');
+    const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    if (location.protocol !== 'https:' && !isLocal) {
+        alert('For phone camera scanning, open this site over HTTPS. You can still type or scan the barcode manually.');
+        useManualBarcodeEntry(input, feedback);
+        return;
+    }
+
+    let Quagga;
+    try {
+        Quagga = await ensureQuaggaLoaded();
+    } catch (error) {
+        console.warn(error);
+        alert('Camera scanner library could not load. Please enter the barcode or SKU manually.');
+        useManualBarcodeEntry(input, feedback);
+        resetCameraScannerUI(viewport, btn);
+        return;
+    }
+
+    if (!navigator.mediaDevices || typeof navigator.mediaDevices.getUserMedia !== 'function') {
+        alert('Camera access is not available in this browser. Please use a supported browser or type the SKU manually.');
+        useManualBarcodeEntry(input, feedback);
+        resetCameraScannerUI(viewport, btn);
+        return;
+    }
+
+    viewport.classList.remove('hidden');
+    btn.textContent = 'Stop Camera Scanner';
+    cameraActive = true;
+
+    Quagga.init({
+        inputStream: {
+            name: 'Live',
+            type: 'LiveStream',
+            target: viewport,
+            constraints: {
+                facingMode: 'environment',
+                width: { ideal: 1280 },
+                height: { ideal: 720 }
+            }
+        },
+        decoder: {
+            readers: ['code_128_reader', 'ean_reader', 'ean_8_reader', 'upc_reader', 'upc_e_reader', 'code_39_reader']
+        },
+        locate: true
+    }, function(error) {
+        if (error) {
+            console.error(error);
+            let message = 'Camera initialization failed. Allow camera permission in your browser and try again.';
+            if (error.name === 'NotAllowedError') {
+                message = 'Camera permission was denied. Allow camera access in your phone browser settings, then try again.';
+            } else if (error.name === 'NotFoundError') {
+                message = 'No camera was found on this device. You can type or scan the SKU manually.';
+            }
+            alert(message);
+            useManualBarcodeEntry(input, feedback);
+            resetCameraScannerUI(viewport, btn);
             return;
         }
 
-        Quagga.init({
-            inputStream: {
-                name: 'Live',
-                type: 'LiveStream',
-                target: viewport,
-                constraints: {
-                    facingMode: 'environment'
-                }
-            },
-            decoder: {
-                readers: ['code_128_reader', 'ean_reader', 'upc_reader', 'qr_code_reader']
-            }
-        }, function(err) {
-            if (err) {
-                console.error(err);
-                alert('Camera initialization failed. Please ensure camera permissions are allowed.');
-                cameraActive = false;
-                btn.textContent = 'Start Live Camera Scanner';
-                viewport.classList.add('hidden');
-                return;
-            }
-            Quagga.start();
-        });
+        Quagga.start();
+    });
 
-        Quagga.onDetected(function(result) {
-            const code = result && result.codeResult ? result.codeResult.code : '';
-            if (!code) return;
-            if (input) input.value = code;
-            toggleCameraScanner();
-            lookupProduct();
-        });
-
-    } else {
-        if (window.Quagga) {
-            Quagga.stop();
-        }
-        viewport.classList.add('hidden');
-        btn.textContent = 'Start Live Camera Scanner';
-        cameraActive = false;
-    }
+    Quagga.onDetected(function(result) {
+        const code = result && result.codeResult ? result.codeResult.code : '';
+        if (!code) return;
+        if (input) input.value = code;
+        toggleCameraScanner();
+        if (typeof lookupProduct === 'function') lookupProduct();
+    });
 }
 
 // Barcode/QR Code & SKU Product Lookup (AJAX)

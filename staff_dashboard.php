@@ -238,25 +238,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['checkout_action'])) {
     </script>
 
     <div class="flex-1 lg:ml-72 flex flex-col min-h-screen page-shell">
-        <header class="border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0 z-30 px-6 py-4 flex justify-between items-center shadow-sm">
-            <div class="pl-12 lg:pl-0">
+        <header class="border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0 z-30 px-4 sm:px-6 py-4 flex flex-wrap sm:flex-nowrap justify-between items-center gap-3 shadow-sm">
+            <div class="pl-12 sm:pl-0 min-w-0">
                 <span class="text-xs font-bold uppercase tracking-wider text-[#056847]">POS Terminal</span>
-                <h2 class="text-base font-extrabold text-slate-900">Staff Point of Sale</h2>
+                <h2 class="text-sm sm:text-base font-extrabold text-slate-900">Staff Point of Sale</h2>
             </div>
-            <div class="flex items-center gap-3">
-                <a href="returns.php" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold border border-amber-200 transition shadow-xs">
+            <div class="flex flex-wrap items-center justify-end gap-2 sm:gap-3 ml-auto max-w-full">
+                <a href="returns.php" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold border border-amber-200 transition shadow-xs">
                     ↺ Process Return / RMA
                 </a>
-                <span class="bg-emerald-50 text-[#056847] border border-emerald-200 text-xs px-3.5 py-1.5 rounded-full font-bold shadow-xs hidden sm:inline-block">
+                <span class="bg-emerald-50 text-[#056847] border border-emerald-200 text-xs px-3 py-1.5 rounded-full font-bold shadow-xs hidden sm:inline-block">
                     ● Store Online
                 </span>
             </div>
         </header>
 
-        <main class="p-4 sm:p-6 lg:p-8 space-y-6 flex-1 max-w-7xl w-full mx-auto">
+        <main class="p-4 sm:p-6 lg:p-8 space-y-6 flex-1 max-w-7xl w-full mx-auto box-border">
 
         <!-- Excel Import & Export Action Bar -->
-        <div class="flex flex-wrap gap-4 mb-8 bg-white border border-slate-200/80 p-4 rounded-2xl shadow-sm items-center justify-between">
+        <div class="flex flex-wrap gap-4 mb-8 bg-white border border-slate-200/80 p-4 sm:p-5 rounded-2xl shadow-sm items-center justify-between">
             <div class="text-sm font-bold text-slate-900">Inventory Data Tools:</div>
             <div class="flex gap-4 items-center">
                 <a href="export_excel.php" class="bg-[#056847] hover:bg-[#045238] text-white text-sm font-bold px-4 py-2 rounded-xl transition shadow-sm">
@@ -279,33 +279,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['checkout_action'])) {
         <?php endif; ?>
 
         <!-- Quick Bento Grid Overview for Staff (3 Cards) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bento-card bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm hover:shadow-md transition">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8">
+            <div class="bento-card bg-white border border-slate-200/80 p-4 sm:p-6 rounded-2xl shadow-sm hover:shadow-md transition">
                 <h3 class="text-xs font-extrabold uppercase tracking-wider text-[#056847]">Terminal Status</h3>
-                <p class="text-2xl font-extrabold text-slate-900 mt-3">Active & Ready</p>
+                <p class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-3">Active &amp; Ready</p>
             </div>
-            <div class="bento-card bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm hover:shadow-md transition">
+            <div class="bento-card bg-white border border-slate-200/80 p-4 sm:p-6 rounded-2xl shadow-sm hover:shadow-md transition">
                 <h3 class="text-xs font-extrabold uppercase tracking-wider text-[#f97316]">Assigned Branch</h3>
-                <p class="text-2xl font-extrabold text-slate-900 mt-3">Mbarara Shop L4.072</p>
+                <p class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-3 break-words">Mbarara Shop L4.072</p>
             </div>
-            <div class="bento-card bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm hover:shadow-md transition">
-                <div class="flex items-center justify-between">
+            <div class="bento-card bg-white border border-slate-200/80 p-4 sm:p-6 rounded-2xl shadow-sm hover:shadow-md transition">
+                <div class="flex flex-wrap items-center justify-between gap-2">
                     <h3 class="text-xs font-extrabold uppercase tracking-wider text-amber-600">Returned Units</h3>
                     <a href="returns.php" class="text-[11px] font-bold text-[#056847] hover:underline">Manage →</a>
                 </div>
-                <p class="text-2xl font-extrabold text-slate-900 mt-3"><?php echo $returns_stats['total']; ?> Logged</p>
+                <p class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-3 break-words"><?php echo $returns_stats['total']; ?> Logged</p>
                 <p class="text-xs text-slate-500 font-medium mt-1">
-                    <span class="text-emerald-700 font-bold"><?php echo $returns_stats['resellable']; ?> Restocked</span> · 
+                    <span class="text-emerald-700 font-bold"><?php echo $returns_stats['resellable']; ?> Restocked</span> ·
                     <span class="text-red-600 font-bold"><?php echo $returns_stats['defective']; ?> Defective</span>
                 </p>
             </div>
         </div>
 
         <!-- POS Terminal Workspace & Bento Grid Layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
             
             <!-- Left 2 Columns: Product Scanner & Cart Management -->
-            <div class="lg:col-span-2 space-y-6">
+            <div class="lg:col-span-2 space-y-4 sm:space-y-6 min-w-0">
                 
                 <!-- 1. Barcode/QR Code & SKU Product Lookup & Live Camera Viewfinder -->
                 <div class="bento-card bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm hover:shadow-md transition space-y-4">

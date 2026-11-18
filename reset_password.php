@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <!-- Mobile layout: hero padding keeps reset cards off physical screen edges. -->
     <div class="hero w-full min-h-screen overflow-x-hidden px-4 sm:px-6 box-border">
-        <div class="form-box w-full max-w-md mx-auto box-border" style="min-height: 480px;">
+        <div class="form-box w-[92%] sm:w-full max-w-md mx-auto box-border" style="min-height: 0;">
             <!-- Brand Logo Header -->
             <div class="logo-container">
                 <img src="gallary/logo.png" alt="Sensiflex Logo" class="brand-logo">

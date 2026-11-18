@@ -126,35 +126,35 @@ try {
     <div class="flex-1 lg:ml-72 flex flex-col min-h-screen page-shell">
 
         <!-- Top Header Bar -->
-        <header class="border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0 z-30 px-6 py-4 flex justify-between items-center shadow-sm">
-            <div class="pl-12 lg:pl-0">
+        <header class="border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0 z-30 px-4 sm:px-6 py-4 flex flex-wrap sm:flex-nowrap justify-between items-center gap-3 shadow-sm">
+            <div class="pl-12 sm:pl-0 min-w-0">
                 <span class="text-xs font-bold uppercase tracking-wider text-[#056847]">Control Center</span>
-                <h2 class="text-base font-extrabold text-slate-900">Executive Overview & BI Analytics</h2>
+                <h2 class="text-sm sm:text-base font-extrabold text-slate-900">Executive Overview &amp; BI Analytics</h2>
             </div>
-            <div class="flex items-center gap-3">
-                <a href="returns.php" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold border border-amber-200 transition shadow-xs">
+            <div class="flex flex-wrap items-center justify-end gap-2 sm:gap-3 ml-auto max-w-full">
+                <a href="returns.php" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold border border-amber-200 transition shadow-xs">
                     ↺ Process Return / RMA
                 </a>
-                <span class="bg-emerald-50 text-[#056847] border border-emerald-200 text-xs px-3.5 py-1.5 rounded-full font-bold shadow-xs hidden sm:inline-block">
+                <span class="bg-emerald-50 text-[#056847] border border-emerald-200 text-xs px-3 py-1.5 rounded-full font-bold shadow-xs hidden sm:inline-block">
                     ● Store Online
                 </span>
             </div>
         </header>
 
         <!-- Main Bento Grid Container -->
-        <main class="p-4 sm:p-6 lg:p-8 space-y-6 flex-1 max-w-7xl w-full mx-auto">
+        <main class="p-4 sm:p-6 lg:p-8 space-y-6 flex-1 max-w-7xl w-full mx-auto box-border">
 
             <!-- Page Header Banner -->
-            <div class="bg-gradient-to-r from-[#056847]/10 via-white to-[#f97316]/10 border border-slate-200/80 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm">
-                <div>
-                    <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Business Intelligence & Analytics</h1>
+            <div class="bg-gradient-to-r from-[#056847]/10 via-white to-[#f97316]/10 border border-slate-200/80 rounded-2xl p-4 sm:p-6 lg:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm">
+                <div class="min-w-0">
+                    <h1 class="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">Business Intelligence &amp; Analytics</h1>
                     <p class="text-slate-600 text-sm mt-1 font-medium">Real-time data visualization of sales performance, category distribution, and inventory status.</p>
                 </div>
-                <div class="flex flex-wrap gap-3 w-full md:w-auto">
-                    <a href="inventory.php" class="bg-[#056847] hover:bg-[#045238] text-white px-5 py-3 rounded-xl text-sm font-bold shadow-md transition flex items-center gap-2">
+                <div class="flex flex-col sm:flex-row flex-wrap gap-3 w-full md:w-auto">
+                    <a href="inventory.php" class="justify-center bg-[#056847] hover:bg-[#045238] text-white px-4 sm:px-5 py-3 rounded-xl text-sm font-bold shadow-md transition flex items-center gap-2">
                         📦 Manage Inventory
                     </a>
-                    <a href="pos.php" class="bg-[#f97316] hover:bg-orange-600 text-white px-5 py-3 rounded-xl text-sm font-bold shadow-md transition flex items-center gap-2">
+                    <a href="pos.php" class="justify-center bg-[#f97316] hover:bg-orange-600 text-white px-4 sm:px-5 py-3 rounded-xl text-sm font-bold shadow-md transition flex items-center gap-2">
                         🛒 Open POS Terminal
                     </a>
                 </div>
@@ -167,46 +167,46 @@ try {
             <?php endif; ?>
 
             <!-- Bento Grid Section (Metrics) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
 
                 <!-- Card 1: Total Products -->
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-6 flex flex-col justify-between hover:border-[#056847]/50 shadow-sm hover:shadow-md transition">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 flex flex-col justify-between hover:border-[#056847]/50 shadow-sm hover:shadow-md transition">
                     <div>
                         <span class="text-xs font-extrabold uppercase tracking-wider text-[#056847]">Catalog SKUs</span>
-                        <h3 class="text-4xl font-extrabold mt-3 text-slate-900"><?php echo number_format($productCount); ?></h3>
+                        <h3 class="text-3xl sm:text-4xl font-extrabold mt-3 text-slate-900 break-words"><?php echo number_format($productCount); ?></h3>
                     </div>
                     <p class="text-xs text-slate-600 font-medium mt-4">Unique hardware items in stock catalog.</p>
                 </div>
 
                 <!-- Card 2: Serialized Stock -->
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-6 flex flex-col justify-between hover:border-[#f97316]/50 shadow-sm hover:shadow-md transition">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 flex flex-col justify-between hover:border-[#f97316]/50 shadow-sm hover:shadow-md transition">
                     <div>
                         <span class="text-xs font-extrabold uppercase tracking-wider text-[#f97316]">Hardware Units</span>
-                        <h3 class="text-4xl font-extrabold mt-3 text-slate-900"><?php echo number_format($serialCount); ?></h3>
+                        <h3 class="text-3xl sm:text-4xl font-extrabold mt-3 text-slate-900 break-words"><?php echo number_format($serialCount); ?></h3>
                     </div>
                     <p class="text-xs text-slate-600 font-medium mt-4">Active serial-tracked units ready for sale.</p>
                 </div>
 
                 <!-- Card 3: System Users -->
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-6 flex flex-col justify-between hover:border-blue-500/50 shadow-sm hover:shadow-md transition">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 flex flex-col justify-between hover:border-blue-500/50 shadow-sm hover:shadow-md transition">
                     <div>
                         <span class="text-xs font-extrabold uppercase tracking-wider text-blue-600">Access Control</span>
-                        <h3 class="text-4xl font-extrabold mt-3 text-slate-900"><?php echo number_format($userCount); ?></h3>
+                        <h3 class="text-3xl sm:text-4xl font-extrabold mt-3 text-slate-900 break-words"><?php echo number_format($userCount); ?></h3>
                     </div>
                     <p class="text-xs text-slate-600 font-medium mt-4">Active administrators and store cashiers.</p>
                 </div>
 
                 <!-- Card 4: Returned Units Metric -->
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/50 shadow-sm hover:shadow-md transition">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 flex flex-col justify-between hover:border-amber-500/50 shadow-sm hover:shadow-md transition">
                     <div>
-                        <div class="flex items-center justify-between">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
                             <span class="text-xs font-extrabold uppercase tracking-wider text-amber-600">Returned Units</span>
                             <a href="returns.php" class="text-[11px] font-bold text-[#056847] hover:underline">Manage →</a>
                         </div>
-                        <h3 class="text-4xl font-extrabold mt-3 text-slate-900"><?php echo $returns_stats['total']; ?></h3>
+                        <h3 class="text-3xl sm:text-4xl font-extrabold mt-3 text-slate-900 break-words"><?php echo $returns_stats['total']; ?></h3>
                     </div>
                     <p class="text-xs text-slate-600 font-medium mt-4">
-                        <span class="text-emerald-700 font-bold"><?php echo $returns_stats['resellable']; ?> Restocked</span> · 
+                        <span class="text-emerald-700 font-bold"><?php echo $returns_stats['resellable']; ?> Restocked</span> ·
                         <span class="text-red-600 font-bold"><?php echo $returns_stats['defective']; ?> Defective</span>
                     </p>
                 </div>
@@ -214,10 +214,10 @@ try {
             </div>
 
             <!-- ================= DATA VISUALIZATION & BI CHARTS SECTION ================= -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
                 
                 <!-- Chart 1: Revenue Trend Curve (Line Chart taking 2 columns) -->
-                <div class="lg:col-span-2 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                <div class="lg:col-span-2 bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
                     <div class="flex justify-between items-center mb-4">
                         <div>
                             <h3 class="text-lg font-extrabold text-slate-900">Sales Revenue Trend (Last 7 Active Days)</h3>
@@ -231,7 +231,7 @@ try {
                 </div>
 
                 <!-- Chart 2: Serialized Stock Status (Doughnut / Pie Chart) -->
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
                     <div class="mb-4">
                         <h3 class="text-lg font-extrabold text-slate-900">Hardware Serial Status</h3>
                         <p class="text-xs text-slate-500 font-medium">In-Stock vs Sold Unit Distribution</p>
@@ -244,10 +244,10 @@ try {
             </div>
 
             <!-- Second Row of Charts: Product Categories Bar Graph -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 
                 <!-- Chart 3: Product Category Stock Volume (Bar Graph) -->
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm">
                     <div class="flex justify-between items-center mb-4">
                         <div>
                             <h3 class="text-lg font-extrabold text-slate-900">Inventory Volume by Category</h3>
@@ -261,7 +261,7 @@ try {
                 </div>
 
                 <!-- Registered Staff & System Users Table -->
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-4">
                             <div>
@@ -315,7 +315,7 @@ try {
             </div>
 
             <!-- Returned Products & RMA Audit Tracker -->
-            <div class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
+            <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm">
                 <div class="flex flex-wrap justify-between items-center gap-4 mb-4">
                     <div>
                         <h3 class="text-lg font-extrabold text-slate-900">Recent Returned Products (RMA Log)</h3>

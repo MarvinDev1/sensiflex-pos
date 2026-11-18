@@ -29,6 +29,8 @@ try {
     <link rel="stylesheet" href="style.css">
     <!-- Tailwind CSS CDN for high-end Bento Grid utility styling -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- QuaggaJS: loaded before script.js so camera scanning is available -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen font-sans flex antialiased">
 
