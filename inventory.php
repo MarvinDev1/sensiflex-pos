@@ -55,7 +55,7 @@ try {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>SENSIFLEX - Inventory & Serial Tracking</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -90,11 +90,11 @@ try {
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <!-- Add SKU Form -->
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-8 w-full max-w-full min-w-0 box-border shadow-sm flex flex-col justify-between">
                     <div>
                         <h3 class="text-lg font-extrabold text-slate-900 mb-1">Add New SKU</h3>
                         <p class="text-xs font-medium text-slate-500 mb-5">Register a new security item into store inventory.</p>
-                        <form action="inventory.php" method="POST" class="space-y-4">
+                        <form action="inventory.php" method="POST" class="w-full max-w-full min-w-0 box-border space-y-4">
                             <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Product Name / Model</label><input type="text" name="product_name" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm font-medium focus:outline-none focus:border-[#056847]" required></div>
                             <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Category</label><select name="category" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm font-medium focus:outline-none focus:border-[#056847]" required><option value="">Select Category</option><option value="CCTV Cameras">CCTV Cameras</option><option value="DVR / NVR Systems">DVR / NVR Systems</option><option value="Access Control">Access Control</option><option value="Power & Cables">Power & Cables</option><option value="Smart Gadgets & LEDs">Smart Gadgets & LEDs</option></select></div>
                             <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Unit Price (UGX)</label><input type="number" name="price" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm font-medium focus:outline-none focus:border-[#056847]" required></div>
@@ -105,7 +105,7 @@ try {
                 </div>
 
                 <!-- Products Table with Serial Batch & Delete Actions -->
-                <div class="lg:col-span-2 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                <div class="lg:col-span-2 bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-8 w-full max-w-full min-w-0 box-border shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-5">
                             <div><h3 class="text-lg font-extrabold text-slate-900">Current Stock Catalog</h3><p class="text-xs text-slate-500">Live overview of available security hardware and pricing.</p></div>

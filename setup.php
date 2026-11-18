@@ -85,13 +85,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>SENSIFLEX - One-Time Installer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="max-w-full overflow-x-hidden">
     <div class="hero w-full min-h-screen overflow-x-hidden px-4 sm:px-6 box-border">
-        <div class="form-box w-[92%] sm:w-full max-w-md mx-auto box-border" style="min-height: auto; padding-bottom: 30px;">
+        <div class="form-box w-[92%] sm:w-full max-w-md mx-auto px-6 py-8 sm:px-8 sm:py-8 box-border" style="min-height: auto;">
             <div class="logo-container">
                 <img src="gallary/logo.png" alt="Sensiflex Logo" class="brand-logo">
             </div>
@@ -106,20 +106,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="alert-box success" style="display:block;"><?php echo $success; ?></div>
             <?php else: ?>
                 <form action="setup.php" method="POST" style="position: relative; top: 0; width: 100%;">
-                    <input type="text" name="username" class="input-field" placeholder="Admin Username" required>
-                    <input type="email" name="email" class="input-field" placeholder="Admin Email" required>
-                    <input type="tel" name="phone" class="input-field" placeholder="Phone Number">
+                    <input type="text" name="username" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Admin Username" required>
+                    <input type="email" name="email" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Admin Email" required>
+                    <input type="tel" name="phone" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Phone Number">
                     
-                    <div class="password-container">
-                        <input type="password" name="password" id="setup-pass" class="input-field" placeholder="Master Password" required>
-                        <img src="gallary/eye.png" alt="Toggle Password" class="eye-icon slashed" onclick="togglePassword('setup-pass', this)">
+                    <div class="password-container w-full max-w-full min-w-0 box-border">
+                        <input type="password" name="password" id="setup-pass" class="input-field w-full max-w-full min-w-0 box-border pr-8" placeholder="Master Password" required>
+                        <img src="gallary/eye.png" alt="Toggle Password" class="eye-icon" onclick="togglePassword('setup-pass', this)">
                     </div>
 
-                    <div class="password-container">
-                        <input type="password" name="confirm_password" id="setup-confirm" class="input-field" placeholder="Confirm Password" required>
+                    <div class="password-container w-full max-w-full min-w-0 box-border">
+                        <input type="password" name="confirm_password" id="setup-confirm" class="input-field w-full max-w-full min-w-0 box-border pr-8" placeholder="Confirm Password" required>
                     </div>
 
-                    <button type="submit" class="submit-btn">Provision System & Lock</button>
+                    <button type="submit" class="submit-btn w-full max-w-full min-w-0 box-border">Provision System &amp; Lock</button>
                 </form>
             <?php endif; ?>
         </div>

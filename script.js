@@ -9,13 +9,20 @@ function togglePassword(fieldId, iconElement) {
     if (!passwordInput || !iconElement) return;
 
     var container = iconElement.parentElement;
+
     if (passwordInput.type === "password") {
+        // Step 1: reveal text and brighten/scale the eye.
         passwordInput.type = "text";
         iconElement.classList.remove("slashed");
+        iconElement.classList.add("eye-revealed");
+        iconElement.setAttribute("aria-label", "Hide password");
         if (container) container.classList.remove("has-slash");
     } else {
+        // Step 2: hide text and animate the orange slash across the eye.
         passwordInput.type = "password";
+        iconElement.classList.remove("eye-revealed");
         iconElement.classList.add("slashed");
+        iconElement.setAttribute("aria-label", "Show password");
         if (container) container.classList.add("has-slash");
     }
 }
@@ -114,7 +121,7 @@ function syncAuthAlertsFromUrl() {
 function login(){
     if (!x || !y || !f || !z) return;
     setActiveForm(x);
-    x.style.left = window.matchMedia('(max-width: 768px)').matches ? "20px" : "25px";
+    x.style.left = window.matchMedia('(max-width: 768px)').matches ? "0px" : "32px";
     y.style.left = "400px";
     if(f) f.style.left = "400px";
     z.style.left = "0px";
@@ -124,7 +131,7 @@ function register(){
     if (!x || !y || !f || !z) return;
     setActiveForm(y);
     x.style.left = "-400px";
-    y.style.left = window.matchMedia('(max-width: 768px)').matches ? "20px" : "25px";
+    y.style.left = window.matchMedia('(max-width: 768px)').matches ? "0px" : "32px";
     if(f) f.style.left = "400px";
     z.style.left = window.matchMedia('(max-width: 768px)').matches ? "50%" : "110px";
     y.style.opacity = "1";
@@ -138,7 +145,7 @@ function showForgot(event){
     if(event) event.preventDefault();
     x.style.left = "-400px";
     y.style.left = "400px";
-    if(f) f.style.left = window.matchMedia('(max-width: 768px)').matches ? "20px" : "25px";
+    if(f) f.style.left = window.matchMedia('(max-width: 768px)').matches ? "0px" : "32px";
     f.style.opacity = "1";
     f.style.visibility = "visible";
 }
@@ -518,7 +525,11 @@ async function toggleCameraScanner() {
             name: 'Live',
             type: 'LiveStream',
             target: viewport,
-            constraints: {
+            constraints: window.matchMedia('(max-width: 768px)').matches ? {
+                facingMode: 'environment',
+                width: { ideal: 640, max: 960 },
+                height: { ideal: 480, max: 720 }
+            } : {
                 facingMode: 'environment',
                 width: { ideal: 1280 },
                 height: { ideal: 720 }
@@ -552,6 +563,153 @@ async function toggleCameraScanner() {
         if (input) input.value = code;
         toggleCameraScanner();
         if (typeof lookupProduct === 'function') lookupProduct();
+    });
+}
+
+// Reliable page-specific Quagga serial scanning logic with HTTPS, camera permission, form validation, and manual fallback handling
+let serialScannerActive = false;
+let serialScannerDetected = false;
+
+async function ensureSerialQuaggaLoaded() {
+    if (typeof window.Quagga !== 'undefined') return window.Quagga;
+
+    return new Promise(function(resolve, reject) {
+        const fallbackScript = document.createElement('script');
+        fallbackScript.src = 'https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js';
+        fallbackScript.async = true;
+        fallbackScript.onload = function() {
+            typeof window.Quagga !== 'undefined'
+                ? resolve(window.Quagga)
+                : reject(new Error('QuaggaJS did not initialize'));
+        };
+        fallbackScript.onerror = function() {
+            reject(new Error('Unable to load QuaggaJS'));
+        };
+        document.head.appendChild(fallbackScript);
+    });
+}
+
+function setSerialScannerFeedback(message, isError) {
+    const feedback = document.getElementById('serial-scanner-feedback');
+    if (!feedback) return;
+    feedback.textContent = message;
+    feedback.className = 'mt-2 text-xs font-medium ' + (isError ? 'text-red-600' : 'text-emerald-700');
+}
+
+function resetSerialScannerUI() {
+    const viewport = document.getElementById('serial-scanner-viewport');
+    const button = document.getElementById('serial-scanner-btn');
+    serialScannerActive = false;
+    serialScannerDetected = false;
+    if (viewport) {
+        viewport.classList.add('hidden');
+        viewport.classList.remove('flex');
+    }
+    if (button) {
+        button.innerHTML = '<span aria-hidden="true">📷</span><span>Scan Serial Code</span>';
+        button.setAttribute('aria-expanded', 'false');
+    }
+}
+
+async function toggleSerialScanner() {
+    const viewport = document.getElementById('serial-scanner-viewport');
+    const button = document.getElementById('serial-scanner-btn');
+    const input = document.getElementById('serial-number-input');
+    if (!viewport || !button || !input) return;
+
+    if (serialScannerActive) {
+        if (typeof window.Quagga !== 'undefined') {
+            try { window.Quagga.stop(); } catch (error) { console.warn(error); }
+        }
+        resetSerialScannerUI();
+        setSerialScannerFeedback('Serial scanner stopped.', false);
+        return;
+    }
+
+    const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    if (location.protocol !== 'https:' && !isLocal) {
+        setSerialScannerFeedback('Camera scanning requires HTTPS. Type or use a handheld scanner instead.', true);
+        input.focus();
+        return;
+    }
+
+    let Quagga;
+    try {
+        Quagga = await ensureSerialQuaggaLoaded();
+    } catch (error) {
+        console.warn(error);
+        setSerialScannerFeedback('Scanner library could not load. Type or use a handheld scanner instead.', true);
+        input.focus();
+        return;
+    }
+
+    if (!navigator.mediaDevices || typeof navigator.mediaDevices.getUserMedia !== 'function') {
+        setSerialScannerFeedback('Camera access is unavailable in this browser. Type or use a handheld scanner instead.', true);
+        input.focus();
+        return;
+    }
+
+    viewport.classList.remove('hidden');
+    viewport.classList.add('flex');
+    button.innerHTML = '<span aria-hidden="true">■</span><span>Stop Scanner</span>';
+    button.setAttribute('aria-expanded', 'true');
+    serialScannerActive = true;
+    serialScannerDetected = false;
+    setSerialScannerFeedback('Requesting camera permission...', false);
+
+    Quagga.init({
+        inputStream: {
+            name: 'SerialLive',
+            type: 'LiveStream',
+            target: viewport,
+            constraints: window.matchMedia('(max-width: 768px)').matches ? {
+                facingMode: 'environment',
+                width: { ideal: 640, max: 960 },
+                height: { ideal: 480, max: 720 }
+            } : {
+                facingMode: 'environment',
+                width: { ideal: 1280 },
+                height: { ideal: 720 }
+            }
+        },
+        locator: { patchSize: 'medium', halfSample: true },
+        decoder: {
+            readers: ['code_128_reader', 'code_39_reader', 'ean_reader', 'ean_8_reader', 'upc_reader', 'upc_e_reader']
+        },
+        locate: true
+    }, function(error) {
+        if (error) {
+            console.error(error);
+            const denied = error.name === 'NotAllowedError' || /permission/i.test(error.message || '');
+            setSerialScannerFeedback(denied
+                ? 'Camera permission denied. Allow it in browser settings, then try again.'
+                : 'Could not start the camera. Check device permissions and try again.', true);
+            try { Quagga.stop(); } catch (stopError) { console.warn(stopError); }
+            resetSerialScannerUI();
+            input.focus();
+            return;
+        }
+
+        setSerialScannerFeedback('Camera ready. Hold the barcode inside the frame.', false);
+        Quagga.start();
+    });
+
+    Quagga.onDetected(function(result) {
+        if (!serialScannerActive || serialScannerDetected) return;
+        const code = result && result.codeResult ? String(result.codeResult.code || '').trim() : '';
+        if (!code) return;
+
+        serialScannerDetected = true;
+        input.value = code;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+        input.setCustomValidity('');
+        input.reportValidity();
+        setSerialScannerFeedback('Serial detected: ' + code, false);
+
+        try { Quagga.stop(); } catch (error) { console.warn(error); }
+        resetSerialScannerUI();
+        input.focus();
     });
 }
 
@@ -671,7 +829,7 @@ function renderCart() {
     let total = subtotal - discount;
 
     document.getElementById('cart-subtotal').textContent = 'UGX ' + subtotal.toLocaleString();
-    document.getElementById('cart-discount').textContent = '-UGX ' + discount.toLocaleString();
+    document.getElementById('cart-disdiscount').textContent = '-UGX ' + discount.toLocaleString();
     document.getElementById('cart-total').textContent = 'UGX ' + total.toLocaleString();
 }
 
@@ -680,9 +838,12 @@ function prepareCheckout() {
     document.getElementById('cart-items-json').value = JSON.stringify(activeCart);
 }
 
-// FIX: Initialize the orange slash for password fields that start hidden on every authentication view.
-document.querySelectorAll('.eye-icon.slashed').forEach(function (iconElement) {
+// Password fields begin hidden with the normal eye icon and no slash.
+document.querySelectorAll('.eye-icon').forEach(function (iconElement) {
+    iconElement.classList.remove('slashed', 'eye-revealed');
+    iconElement.setAttribute('aria-label', 'Show password');
+
     if (iconElement.parentElement) {
-        iconElement.parentElement.classList.add('has-slash');
+        iconElement.parentElement.classList.remove('has-slash');
     }
 });

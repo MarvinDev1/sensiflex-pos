@@ -72,14 +72,17 @@ iframe {
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    padding: 25px;
+    box-sizing: border-box;
+    padding: 32px;
     color: #ffffff;
 }
 
 .form-box > form {
-    width: 330px;
-    left: 25px;
+    width: calc(100% - 64px);
+    max-width: 100%;
+    left: 400px;
     right: auto;
+    box-sizing: border-box;
 }
 
 .btn-box{
@@ -123,9 +126,11 @@ iframe {
 .input-group{
     top: 160px;
     position: absolute;
-    width: 330px;
+    width: calc(100% - 64px);
+    max-width: 100%;
     left: 400px;
     right: auto;
+    box-sizing: border-box;
     padding: 0;
     transition: .5s;
     opacity: 0;
@@ -134,7 +139,7 @@ iframe {
 }
 
 .input-group.active {
-    left: 25px;
+    left: 32px;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -142,7 +147,7 @@ iframe {
 
 #register.input-group.active,
 #forgot.input-group.active {
-    left: 25px;
+    left: 32px;
 }
 
 .input-field{
@@ -221,7 +226,7 @@ iframe {
 }
 
 #login{
-    left: 25px;
+    left: 32px;
 }
 #register{
     left: 400px;
@@ -230,7 +235,7 @@ iframe {
     left: 400px;
 }
 #forgot.input-group.active {
-    left: 25px;
+    left: 32px;
 }
 
 .password-container {
@@ -271,34 +276,29 @@ iframe {
     z-index: 10;
 }
 
-.eye-icon:hover {
+.eye-icon:hover,
+.eye-icon.eye-revealed {
     opacity: 1;
+    filter: invert(1) brightness(1.25);
     transform: translateY(-50%) scale(1.1);
 }
 
 .alert-box {
-    width: 100%;
-    padding: 6px 10px;
-    margin-bottom: 8px;
-    border-radius: 6px;
-    font-size: 11px;
-    text-align: center;
-    font-weight: 500;
     display: none;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 12px 0;
+    font-size: 12.5px;
+    line-height: 1.35;
+    padding: 8px 10px;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
-.alert-box.error {
-    display: block;
-    background: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.4);
-    color: #fca5a5;
-}
-
+.alert-box.error,
 .alert-box.success {
     display: block;
-    background: rgba(16, 185, 129, 0.15);
-    border: 1px solid rgba(16, 185, 129, 0.4);
-    color: #6ee7b7;
 }
 
 /* FOOLPROOF MOBILE RESPONSIVE FIX (Screens under 768px) */
@@ -306,9 +306,78 @@ iframe {
     html,
     body {
         width: 100%;
+        max-width: 100%;
         min-width: 0;
-        min-height: 100%;
+        overflow-x: hidden;
         box-sizing: border-box;
+    }
+
+    body,
+    .page-shell,
+    .page-shell main,
+    .page-shell header,
+    .page-shell section,
+    .page-shell article {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .page-shell main {
+        margin: 0 auto;
+        padding: 16px !important;
+        overflow-x: hidden;
+    }
+
+    .page-shell [class*="rounded-2xl"],
+    .page-shell [class*="bento-card"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0;
+        box-sizing: border-box;
+        overflow-wrap: anywhere;
+    }
+
+    .page-shell .grid,
+    .page-shell .grid > *,
+    .page-shell form,
+    .page-shell table,
+    .page-shell input,
+    .page-shell select,
+    .page-shell textarea,
+    .page-shell button {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    #interactive,
+    #serial-scanner-viewport {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0;
+        height: 240px;
+        min-height: 240px;
+        max-height: 240px;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    #interactive video,
+    #interactive canvas,
+    #serial-scanner-viewport video,
+    #serial-scanner-viewport canvas {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        object-fit: cover;
+        object-position: center;
+        display: block;
     }
 
     .hero {
@@ -325,7 +394,7 @@ iframe {
     /* Mobile auth screens use document flow instead of fixed absolute positions. */
     .form-box {
         width: 92% !important;
-        max-width: 420px !important;
+        max-width: 340px !important;
         min-height: 0 !important;
         height: auto !important;
         margin: 0 auto !important;
@@ -486,6 +555,32 @@ iframe {
     }
 }
 
+/* Desktop auth card keeps a compact, stable size and clean sliding area. */
+@media (min-width: 769px) {
+    .hero .form-box {
+        width: 380px;
+        max-width: 380px;
+        min-height: 520px;
+        height: auto;
+        padding: 32px;
+        box-sizing: border-box;
+    }
+
+    .hero .form-box > form,
+    .hero .form-box .input-group {
+        width: calc(100% - 64px);
+        max-width: 316px;
+        box-sizing: border-box;
+    }
+
+    .hero .form-box .input-group.active,
+    .hero .form-box #login.input-group.active,
+    .hero .form-box #register.input-group.active,
+    .hero .form-box #forgot.input-group.active {
+        left: 32px;
+    }
+}
+
 /* Extra-small phones (320-360px wide) */
 @media (max-width: 360px) {
     .hero {
@@ -518,7 +613,7 @@ iframe {
     .form-box {
         min-height: 0 !important;
         height: auto !important;
-        padding-top: 16px !important;
+        padding: 20px 20px 24px !important;
     }
 }
 
@@ -617,7 +712,7 @@ iframe {
 
     .form-box {
         width: 92% !important;
-        max-width: 420px !important;
+        max-width: 340px !important;
         margin-left: auto !important;
         margin-right: auto !important;
     }
@@ -725,5 +820,120 @@ iframe {
     .page-shell td {
         white-space: normal;
         overflow-wrap: anywhere;
+    }
+}
+
+.sidebar-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 70;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    background: rgba(4, 57, 39, 0.95);
+    color: #ffffff;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.28);
+}
+
+#serial-scanner-viewport {
+    min-height: 256px;
+}
+
+#serial-scanner-viewport video,
+#serial-scanner-viewport canvas {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    object-fit: cover;
+}
+
+/* MOBILE ONLY: viewport, page-shell, card, table, and camera containment. */
+@media (max-width: 768px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+
+    body,
+    .page-shell,
+    .page-shell main,
+    .page-shell header,
+    .page-shell section,
+    .page-shell article {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .page-shell main {
+        margin: 0 auto;
+        padding: 16px !important;
+        overflow-x: hidden;
+    }
+
+    .page-shell [class*="rounded-2xl"],
+    .page-shell [class*="bento-card"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0;
+        box-sizing: border-box;
+        overflow-wrap: anywhere;
+    }
+
+    .page-shell .grid,
+    .page-shell .grid > *,
+    .page-shell form,
+    .page-shell table,
+    .page-shell input,
+    .page-shell select,
+    .page-shell textarea,
+    .page-shell button {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    #interactive,
+    #serial-scanner-viewport {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0;
+        height: 240px;
+        min-height: 240px;
+        max-height: 240px;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    #interactive video,
+    #interactive canvas,
+    #serial-scanner-viewport video,
+    #serial-scanner-viewport canvas {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        object-fit: cover;
+        object-position: center;
+        display: block;
     }
 }

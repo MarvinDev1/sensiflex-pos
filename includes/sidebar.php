@@ -32,7 +32,7 @@ $is_nav_active = function ($href) use ($current_page) {
 
 <aside id="sidebar" class="fixed top-0 left-0 bottom-0 w-72 text-white border-r border-[#045238] z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col justify-between shadow-xl lg:shadow-none" style="background-color: #043927;">
     <div class="relative">
-        <button type="button" class="sidebar-close-btn lg:hidden" aria-label="Close menu">✕</button>
+        <button type="button" class="sidebar-close-btn lg:hidden" aria-label="Close menu" onclick="toggleSidebar()">✕</button>
         <div class="p-6 border-b border-emerald-800/60 flex flex-col items-center justify-center bg-emerald-900/20">
             <img src="gallary/logo.png" alt="Sensiflex Logo" class="h-12 w-auto mx-auto">
         </div>

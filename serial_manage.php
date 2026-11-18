@@ -76,11 +76,12 @@ try {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>SENSIFLEX - Serial Batch Management</title>
     <link rel="stylesheet" href="style.css">
     <!-- Tailwind CSS CDN for high-end Bento Grid utility styling -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen max-w-full overflow-x-hidden font-sans flex antialiased">
 
@@ -147,18 +148,28 @@ try {
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
                 <!-- Bento Card 1: Scan/Add Serial Form -->
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 box-border w-full max-w-full min-w-0 shadow-sm flex flex-col justify-between">
                     <div>
                         <h3 class="text-lg font-extrabold text-slate-900 mb-1">Scan / Ingest Serial</h3>
                         <p class="text-xs font-medium text-slate-500 mb-5">Use a barcode scanner or type individual unit serial numbers.</p>
                         
-                        <form action="serial_manage.php?product_id=<?php echo $product_id; ?>" method="POST" class="space-y-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Serial Number / Barcode</label>
-                                <input type="text" name="serial_number" class="w-full px-3.5 py-3 border-2 border-[#056847]/40 rounded-xl text-sm font-mono font-bold focus:outline-none focus:border-[#f97316] focus:ring-1 focus:ring-[#f97316]" placeholder="Scan barcode here..." autofocus required>
+                        <form action="serial_manage.php?product_id=<?php echo $product_id; ?>" method="POST" class="w-full max-w-full min-w-0 box-border space-y-4">
+                            <div class="w-full max-w-full min-w-0 box-border">
+                                <label class="block w-full max-w-full box-border text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Serial Number / Barcode</label>
+                                <div class="flex flex-col sm:flex-row gap-2">
+                                    <input id="serial-number-input" type="text" name="serial_number" class="w-full min-w-0 box-border px-3.5 py-3 border-2 border-[#056847]/40 rounded-xl text-sm font-mono font-bold focus:outline-none focus:border-[#f97316] focus:ring-1 focus:ring-[#f97316]" placeholder="Scan barcode here..." autofocus required>
+                                    <button type="button" id="serial-scanner-btn" onclick="toggleSerialScanner()" class="w-full sm:w-auto sm:flex-none min-h-12 box-border inline-flex items-center justify-center gap-2 bg-[#f97316] hover:bg-orange-600 active:bg-orange-700 text-white px-4 py-3 rounded-xl text-sm font-bold shadow-md transition whitespace-nowrap" aria-controls="serial-scanner-viewport" aria-expanded="false">
+                                        <span aria-hidden="true">📷</span>
+                                        <span>Scan Serial Code</span>
+                                    </button>
+                                </div>
+                                <div id="serial-scanner-viewport" class="relative w-full h-64 max-w-full mt-3 bg-slate-950 border-2 border-[#f97316]/70 rounded-xl overflow-hidden hidden items-center justify-center shadow-inner">
+                                    <div id="serial-scanner-status" class="absolute z-20 left-3 right-3 bottom-3 rounded-lg bg-slate-900/80 px-3 py-2 text-center text-xs font-bold text-white">Initializing camera...</div>
+                                </div>
+                                <p id="serial-scanner-feedback" class="mt-2 text-xs font-medium text-slate-500 min-h-4"></p>
                             </div>
 
-                            <button type="submit" name="add_serial" class="w-full bg-[#f97316] hover:bg-orange-600 text-white py-3 rounded-xl text-sm font-bold shadow-md transition">
+                            <button type="submit" name="add_serial" class="w-full max-w-full min-w-0 box-border bg-[#f97316] hover:bg-orange-600 text-white py-3 rounded-xl text-sm font-bold shadow-md transition">
                                 + Register Serial Unit
                             </button>
                         </form>
@@ -237,9 +248,10 @@ try {
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
-            sidebar.classList.toggle('-translate-x-full');
-            overlay.classList.toggle('hidden');
+            if (sidebar) sidebar.classList.toggle('-translate-x-full');
+            if (overlay) overlay.classList.toggle('hidden');
         }
     </script>
+    <script src="script.js"></script>
 </body>
 </html>

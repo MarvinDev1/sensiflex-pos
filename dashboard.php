@@ -100,7 +100,7 @@ try {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>SENSIFLEX - Admin Control Center & BI</title>
     <link rel="stylesheet" href="style.css">
     <!-- Tailwind CSS CDN for high-end Bento Grid utility styling -->
@@ -170,7 +170,7 @@ try {
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
 
                 <!-- Card 1: Total Products -->
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 flex flex-col justify-between hover:border-[#056847]/50 shadow-sm hover:shadow-md transition">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-6 w-full max-w-full min-w-0 box-border flex flex-col justify-between hover:border-[#056847]/50 shadow-sm hover:shadow-md transition">
                     <div>
                         <span class="text-xs font-extrabold uppercase tracking-wider text-[#056847]">Catalog SKUs</span>
                         <h3 class="text-3xl sm:text-4xl font-extrabold mt-3 text-slate-900 break-words"><?php echo number_format($productCount); ?></h3>
@@ -179,7 +179,7 @@ try {
                 </div>
 
                 <!-- Card 2: Serialized Stock -->
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 flex flex-col justify-between hover:border-[#f97316]/50 shadow-sm hover:shadow-md transition">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-6 w-full max-w-full min-w-0 box-border flex flex-col justify-between hover:border-[#f97316]/50 shadow-sm hover:shadow-md transition">
                     <div>
                         <span class="text-xs font-extrabold uppercase tracking-wider text-[#f97316]">Hardware Units</span>
                         <h3 class="text-3xl sm:text-4xl font-extrabold mt-3 text-slate-900 break-words"><?php echo number_format($serialCount); ?></h3>
@@ -188,7 +188,7 @@ try {
                 </div>
 
                 <!-- Card 3: System Users -->
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 flex flex-col justify-between hover:border-blue-500/50 shadow-sm hover:shadow-md transition">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-6 w-full max-w-full min-w-0 box-border flex flex-col justify-between hover:border-blue-500/50 shadow-sm hover:shadow-md transition">
                     <div>
                         <span class="text-xs font-extrabold uppercase tracking-wider text-blue-600">Access Control</span>
                         <h3 class="text-3xl sm:text-4xl font-extrabold mt-3 text-slate-900 break-words"><?php echo number_format($userCount); ?></h3>
@@ -197,7 +197,7 @@ try {
                 </div>
 
                 <!-- Card 4: Returned Units Metric -->
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 flex flex-col justify-between hover:border-amber-500/50 shadow-sm hover:shadow-md transition">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-6 w-full max-w-full min-w-0 box-border flex flex-col justify-between hover:border-amber-500/50 shadow-sm hover:shadow-md transition">
                     <div>
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <span class="text-xs font-extrabold uppercase tracking-wider text-amber-600">Returned Units</span>

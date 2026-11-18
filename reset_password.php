@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>SENSIFLEX - Reset Password</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="max-w-full overflow-x-hidden">
     <!-- Mobile layout: hero padding keeps reset cards off physical screen edges. -->
     <div class="hero w-full min-h-screen overflow-x-hidden px-4 sm:px-6 box-border">
-        <div class="form-box w-[92%] sm:w-full max-w-md mx-auto box-border" style="min-height: 0;">
+        <div class="form-box w-[92%] sm:w-full max-w-md mx-auto px-6 py-8 sm:px-8 sm:py-8 box-border" style="min-height: 0;">
             <!-- Brand Logo Header -->
             <div class="logo-container">
                 <img src="gallary/logo.png" alt="Sensiflex Logo" class="brand-logo">
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <!-- DYNAMIC ALERT CONTAINER: Shows only after the reset submit button is actually clicked -->
             <?php if ($should_show_message && !empty($message)): ?>
-                <div class="alert-box <?php echo $message_type === 'success' ? 'success' : 'error'; ?>" style="display: block; margin-bottom: 15px;">
+                <div class="alert-box my-3 w-full box-border <?php echo $message_type === 'success' ? 'success' : 'error'; ?>" style="display: block;">
                     <?php echo htmlspecialchars($message); ?>
                 </div>
             <?php endif; ?>
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <!-- New Password Field with Eye Toggle Icon -->
                 <div class="password-container w-full max-w-full">
                     <input type="password" name="new_password" class="input-field w-full max-w-full min-w-0 box-border pr-8" id="new-password" placeholder="New Password" required>
-                    <img src="gallary/eye.png" alt="Toggle Password" class="eye-icon slashed" onclick="togglePassword('new-password', this)">
+                    <img src="gallary/eye.png" alt="Toggle Password" class="eye-icon" onclick="togglePassword('new-password', this)">
                 </div>
 
                 <!-- Confirm Password Field with Eye Toggle Icon -->
@@ -111,10 +111,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="submit-btn w-full max-w-full min-w-0" style="margin-top: 20px;">Update Password &amp; Log In</button>
+                <button type="submit" class="submit-btn w-full max-w-full min-w-0 box-border" style="margin-top: 20px;">Update Password &amp; Log In</button>
             </form>
 
-            <div class="remember-row w-full max-w-full" style="justify-content: center; margin-top: 20px;">
+            <div class="remember-row flex flex-wrap gap-2 justify-center items-center w-full max-w-full box-border" style="margin-top: 20px;">
                 <a href="index.php">← Cancel and Back to Log In</a>
             </div>
         </div>

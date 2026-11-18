@@ -61,7 +61,7 @@ if (isset($_GET['success'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -71,7 +71,7 @@ if (isset($_GET['success'])) {
 </head>
 <body class="max-w-full overflow-x-hidden">
     <div class="hero w-full min-h-screen px-4 sm:px-6 box-border overflow-x-hidden">
-        <div class="form-box w-[92%] sm:w-full max-w-md mx-auto box-border">
+        <div class="form-box w-[92%] sm:w-full max-w-md mx-auto p-5 sm:p-8 box-border">
             <div class="logo-container">
                 <img src="gallary/logo.png" alt="Sensiflex Logo" class="brand-logo">
             </div>
@@ -84,63 +84,63 @@ if (isset($_GET['success'])) {
             
             <form id="login" class="input-group w-full max-w-full box-border<?php echo $active_form === 'login' ? ' active' : ''; ?>" action="auth.php" method="POST">
                 <input type="hidden" name="login_action" value="1">
-                <div id="login-alert" class="alert-box <?php echo $login_type === 'success' ? 'success' : ($login_type === 'error' ? 'error' : ''); ?>" style="display: <?php echo !empty($login_message) ? 'block' : 'none'; ?>;">
+                <div id="login-alert" class="alert-box my-3 w-full box-border <?php echo $login_type === 'success' ? 'success' : ($login_type === 'error' ? 'error' : ''); ?>" style="display: <?php echo !empty($login_message) ? 'block' : 'none'; ?>;">
                 <?php echo htmlspecialchars($login_message); ?>
                 </div>
-                <input type="email" name="email" class="input-field" placeholder="Email" required>
-                <div class="password-container">
-                    <input type="password" name="password" class="input-field" id="login-password" placeholder="Password" required>
-                    <img src="gallary/eye.png" alt="Toggle Password" class="eye-icon slashed" onclick="togglePassword('login-password', this)">
+                <input type="email" name="email" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Email" required>
+                <div class="password-container w-full max-w-full min-w-0 box-border">
+                    <input type="password" name="password" class="input-field w-full max-w-full min-w-0 box-border pr-8" id="login-password" placeholder="Password" required>
+                    <img src="gallary/eye.png" alt="Toggle Password" class="eye-icon" onclick="togglePassword('login-password', this)">
                 </div>
                 
-                <div class="remember-row">
-                    <div class="checkbox-container">
-                        <input type="checkbox" class="check-box">
+                <div class="remember-row flex flex-wrap gap-2 justify-between items-center w-full max-w-full min-w-0 box-border text-xs sm:text-sm">
+                    <div class="checkbox-container box-border">
+                        <input type="checkbox" class="check-box box-border">
                         <span>Remember Password</span>
                     </div>
-                    <a href="#" onclick="clearAuthAlerts(); showForgot(event);">Forgot Password?</a>
+                    <a href="#" class="min-w-0" onclick="clearAuthAlerts(); showForgot(event);">Forgot Password?</a>
                 </div>
                 
-                <button type="submit" class="submit-btn">Log in</button>
+                <button type="submit" class="submit-btn w-full max-w-full min-w-0 box-border">Log in</button>
             </form>
 
             <form id="register" class="input-group w-full max-w-full box-border<?php echo $active_form === 'register' ? ' active' : ''; ?>" action="auth.php" method="POST">
                 <input type="hidden" name="register_action" value="1">
-                <div id="register-alert" class="alert-box <?php echo $register_type === 'success' ? 'success' : ($register_type === 'error' ? 'error' : ''); ?>" style="display: <?php echo !empty($register_message) ? 'block' : 'none'; ?>;">
+                <div id="register-alert" class="alert-box my-3 w-full box-border <?php echo $register_type === 'success' ? 'success' : ($register_type === 'error' ? 'error' : ''); ?>" style="display: <?php echo !empty($register_message) ? 'block' : 'none'; ?>;">
                 <?php echo htmlspecialchars($register_message); ?>
                 </div>
-                <input type="text" name="username" class="input-field" placeholder="Full Name or Username" required>
-                <input type="email" name="email" class="input-field" placeholder="Email Address (Verification required)" required>
-                <input type="tel" name="phone" class="input-field" placeholder="Phone Number" required>
+                <input type="text" name="username" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Full Name or Username" required>
+                <input type="email" name="email" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Email Address (Verification required)" required>
+                <input type="tel" name="phone" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Phone Number" required>
 
-                <div class="password-container">
-                    <input type="password" name="password" class="input-field" id="register-password" placeholder="Create Password" required>
-                    <img src="gallary/eye.png" alt="Toggle Password" class="eye-icon slashed" onclick="togglePassword('register-password', this)">
+                <div class="password-container w-full max-w-full min-w-0 box-border">
+                    <input type="password" name="password" class="input-field w-full max-w-full min-w-0 box-border pr-8" id="register-password" placeholder="Create Password" required>
+                    <img src="gallary/eye.png" alt="Toggle Password" class="eye-icon" onclick="togglePassword('register-password', this)">
                 </div>
 
-                <div class="remember-row">
-                    <div class="checkbox-container">
-                        <input type="checkbox" class="check-box" required>
+                <div class="remember-row flex flex-wrap gap-2 justify-between items-center w-full max-w-full min-w-0 box-border text-xs sm:text-sm">
+                    <div class="checkbox-container box-border">
+                        <input type="checkbox" class="check-box box-border" required>
                         <span>I agree to security terms</span>
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn">Register &amp; Verify Email</button>
+                <button type="submit" class="submit-btn w-full max-w-full min-w-0 box-border">Register &amp; Verify Email</button>
             </form>
 
             <form id="forgot" class="input-group w-full max-w-full box-border<?php echo $active_form === 'forgot' ? ' active' : ''; ?>" action="auth.php" method="POST">
                 <input type="hidden" name="forgot_action" value="1">
-                <div id="forgot-alert" class="alert-box <?php echo $forgot_type === 'success' ? 'success' : ($forgot_type === 'error' ? 'error' : ''); ?>" style="display: <?php echo !empty($forgot_message) ? 'block' : 'none'; ?>;">
+                <div id="forgot-alert" class="alert-box my-3 w-full box-border <?php echo $forgot_type === 'success' ? 'success' : ($forgot_type === 'error' ? 'error' : ''); ?>" style="display: <?php echo !empty($forgot_message) ? 'block' : 'none'; ?>;">
                     <?php echo htmlspecialchars($forgot_message); ?>
                 </div>
 
-                <input type="email" name="email" class="input-field" placeholder="Enter your registered email" required>
+                <input type="email" name="email" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Enter your registered email" required>
 
-                <div class="remember-row">
-                    <a href="#" style="margin-left: auto;" onclick="clearAuthAlerts(); login(); return false;">Back to Log In</a>
+                <div class="remember-row flex flex-wrap gap-2 justify-between items-center w-full max-w-full min-w-0 box-border text-xs sm:text-sm">
+                    <a href="#" class="min-w-0 ml-auto" onclick="clearAuthAlerts(); login(); return false;">Back to Log In</a>
                 </div>
 
-                <button type="submit" class="submit-btn">Reset Password</button>
+                <button type="submit" class="submit-btn w-full max-w-full min-w-0 box-border">Reset Password</button>
             </form>
         </div>
     </div>
