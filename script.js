@@ -110,23 +110,23 @@ function syncAuthAlertsFromUrl() {
     return effectiveForm;
 }
 
-// FIX: Match the active form against the card's 25px inner padding so all panels align cleanly within the visible container.
+// FIX: Match the active form against the card's responsive inner padding.
 function login(){
     if (!x || !y || !f || !z) return;
     setActiveForm(x);
-    x.style.left = "25px";    // Slide login form back into the card inset position
-    y.style.left = "400px";   // Slide register form fully off-screen to the right
-    if(f) f.style.left = "400px"; // FIX: Slide forgot password form fully off-screen to the right
-    z.style.left = "0px";     // Slide orange pill back to Log In button
+    x.style.left = window.matchMedia('(max-width: 768px)').matches ? "20px" : "25px";
+    y.style.left = "400px";
+    if(f) f.style.left = "400px";
+    z.style.left = "0px";
 }
 
 function register(){
     if (!x || !y || !f || !z) return;
     setActiveForm(y);
-    x.style.left = "-400px";  // Slide login form fully off-screen to the left
-    y.style.left = "25px";    // Slide register form into the card inset position
-    if(f) f.style.left = "400px"; // FIX: Keep forgot password form hidden off-screen
-    z.style.left = "110px";   // Slide orange pill over to Register button
+    x.style.left = "-400px";
+    y.style.left = window.matchMedia('(max-width: 768px)').matches ? "20px" : "25px";
+    if(f) f.style.left = "400px";
+    z.style.left = window.matchMedia('(max-width: 768px)').matches ? "50%" : "110px";
     y.style.opacity = "1";
     y.style.visibility = "visible";
 }
@@ -136,9 +136,9 @@ function showForgot(event){
     if (!x || !y || !f) return;
     setActiveForm(f);
     if(event) event.preventDefault();
-    x.style.left = "-400px";  // Slide login form fully off-screen to the left
-    y.style.left = "400px";   // Slide register form fully off-screen to the right
-    if(f) f.style.left = "25px";    // Slide forgot password form into the card inset position cleanly
+    x.style.left = "-400px";
+    y.style.left = "400px";
+    if(f) f.style.left = window.matchMedia('(max-width: 768px)').matches ? "20px" : "25px";
     f.style.opacity = "1";
     f.style.visibility = "visible";
 }
