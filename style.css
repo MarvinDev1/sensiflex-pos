@@ -290,7 +290,7 @@ html, body {
     /* Mobile: cap the card and center it inside the padded hero so left/right edges never touch. */
     .form-box {
         width: 100% !important;
-        max-width: 340px !important;
+        max-width: 320px !important;
         margin: 0 auto !important;
         left: auto !important;
         right: auto !important;
