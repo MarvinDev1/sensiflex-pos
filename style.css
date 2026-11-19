@@ -38,6 +38,7 @@ iframe {
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-top: 8px;
     margin-bottom: 5px;
 }
 
@@ -73,7 +74,7 @@ iframe {
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     box-sizing: border-box;
-    padding: 32px;
+    padding: 38px 32px 32px;
     color: #ffffff;
 }
 
@@ -124,7 +125,7 @@ iframe {
 }
 
 .input-group{
-    top: 160px;
+    top: 176px;
     position: absolute;
     width: calc(100% - 64px);
     max-width: 100%;
@@ -152,8 +153,8 @@ iframe {
 
 .input-field{
     width: 100%;
-    padding: 8px 0;
-    margin: 4px 0;
+    padding: 10px 0;
+    margin: 6px 0;
     border-left: 0;
     border-right: 0;
     border-top: 0;
@@ -165,10 +166,16 @@ iframe {
 
 .submit-btn{
     width: 100%;
-    padding: 12px 30px;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-height: 48px;
+    padding: 12px 24px;
     cursor: pointer;
-    display: block;
-    margin: 15px auto 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 18px auto 26px auto;
     background: linear-gradient(to right, #056847, #f97316);
     border: 0;
     outline: none;
@@ -186,6 +193,49 @@ iframe {
     filter: brightness(1.04);
 }
 
+.submit-btn.loading {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    pointer-events: none;
+    cursor: wait;
+    opacity: 0.85;
+    filter: brightness(1.04);
+    text-align: center;
+    animation: submitPulse 1.1s ease-in-out infinite;
+}
+
+.submit-btn.loading::before {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    order: 1;
+    margin: 0;
+    border: 2px solid rgba(255, 255, 255, 0.42);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: submitSpin 0.75s linear infinite;
+}
+
+.submit-btn .submit-btn-text,
+.submit-btn.loading .submit-btn-text {
+    order: 2;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+@keyframes submitSpin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes submitPulse {
+    0%, 100% { box-shadow: 0 8px 24px rgba(5, 104, 71, 0.28); }
+    50% { box-shadow: 0 10px 28px rgba(249, 115, 22, 0.38); }
+}
+
 .checkbox-container {
     display: flex;
     align-items: center;
@@ -195,7 +245,7 @@ iframe {
 .remember-row {
     display: flex;
     align-items: center;
-    margin: 15px 0;
+    margin: 18px 0 14px 0;
     justify-content: flex-start;
     white-space: nowrap;
     width: 100%;
@@ -240,6 +290,7 @@ iframe {
 
 .password-container {
     position: relative;
+    margin: 6px 0;
 }
 
 .password-container::after {
@@ -276,7 +327,10 @@ iframe {
     z-index: 10;
 }
 
-.eye-icon:hover,
+.eye-icon:hover {
+    opacity: 1;
+}
+
 .eye-icon.eye-revealed {
     opacity: 1;
     filter: invert(1) brightness(1.25);
@@ -288,17 +342,51 @@ iframe {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    margin: 12px 0;
+    margin: 14px 0 16px 0;
+    border-radius: 8px;
     font-size: 12.5px;
     line-height: 1.35;
-    padding: 8px 10px;
+    padding: 10px 12px;
+    text-align: center;
+    font-weight: 600;
     white-space: normal;
     overflow-wrap: anywhere;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 250ms cubic-bezier(0.22, 1, 0.36, 1), transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
 }
 
-.alert-box.error,
+.alert-box.error {
+    display: block;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+    animation: alertSoftFadeIn 250ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
 .alert-box.success {
     display: block;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #6ee7b7;
+    animation: alertSoftFadeIn 250ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.alert-box.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes alertSoftFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* FOOLPROOF MOBILE RESPONSIVE FIX (Screens under 768px) */
@@ -358,9 +446,9 @@ iframe {
         width: 100% !important;
         max-width: 100% !important;
         min-width: 0;
-        height: 240px;
-        min-height: 240px;
-        max-height: 240px;
+        height: auto;
+        min-height: 280px;
+        max-height: none;
         overflow: hidden;
         box-sizing: border-box;
     }
@@ -384,11 +472,15 @@ iframe {
         min-height: 100svh;
         min-height: 100dvh;
         height: auto;
-        padding: clamp(24px, 7vw, 32px) clamp(20px, 6vw, 28px) !important;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 24px 16px 32px !important;
         width: 100% !important;
         box-sizing: border-box;
         overflow-x: hidden;
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     /* Mobile auth screens use document flow instead of fixed absolute positions. */
@@ -401,7 +493,7 @@ iframe {
         left: auto !important;
         right: auto !important;
         box-sizing: border-box;
-        padding: 24px 20px 26px !important;
+        padding: 28px 20px 24px !important;
         border-radius: 16px;
         overflow: hidden;
     }
@@ -411,6 +503,7 @@ iframe {
     }
 
     .logo-container {
+        margin-top: 6px;
         margin-bottom: 8px;
     }
 
@@ -463,6 +556,7 @@ iframe {
         visibility: visible;
         opacity: 1;
         pointer-events: auto;
+        padding-bottom: 0 !important;
     }
 
     .input-field,
@@ -496,7 +590,8 @@ iframe {
 
     .submit-btn {
         min-height: 48px;
-        margin-top: 12px;
+        margin-top: 14px;
+        margin-bottom: 0 !important;
         padding: 12px 20px;
         font-size: 16px;
     }
@@ -547,6 +642,11 @@ iframe {
         right: 4px;
     }
 
+    .password-container::after {
+        width: 22px;
+        right: 4px;
+    }
+
     .form-box > form:not(.input-group) {
         position: relative;
         width: 100% !important;
@@ -560,14 +660,15 @@ iframe {
     .hero .form-box {
         width: 380px;
         max-width: 380px;
-        min-height: 520px;
+        min-height: 580px;
         height: auto;
-        padding: 32px;
+        padding: 38px 32px 32px;
         box-sizing: border-box;
     }
 
     .hero .form-box > form,
     .hero .form-box .input-group {
+        top: 176px;
         width: calc(100% - 64px);
         max-width: 316px;
         box-sizing: border-box;
@@ -607,13 +708,15 @@ iframe {
     .hero {
         align-items: flex-start;
         padding-top: 16px !important;
-        padding-bottom: 16px !important;
+        padding-bottom: 24px !important;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .form-box {
         min-height: 0 !important;
         height: auto !important;
-        padding: 20px 20px 24px !important;
+        padding: 28px 20px 24px !important;
     }
 }
 
@@ -705,16 +808,21 @@ iframe {
     .hero {
         height: auto;
         min-height: 100dvh;
+        align-items: flex-start;
         overflow-y: auto;
         overflow-x: hidden;
-        padding: 24px 16px !important;
+        -webkit-overflow-scrolling: touch;
+        padding: 24px 16px 32px !important;
     }
 
     .form-box {
         width: 92% !important;
         max-width: 340px !important;
+        height: auto !important;
+        min-height: 0 !important;
         margin-left: auto !important;
         margin-right: auto !important;
+        padding: 28px 20px 24px !important;
     }
 
     .page-shell .flex.justify-between,
@@ -915,9 +1023,9 @@ iframe {
         width: 100% !important;
         max-width: 100% !important;
         min-width: 0;
-        height: 240px;
-        min-height: 240px;
-        max-height: 240px;
+        height: auto;
+        min-height: 280px;
+        max-height: none;
         overflow: hidden;
         box-sizing: border-box;
     }

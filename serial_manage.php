@@ -163,7 +163,7 @@ try {
                                         <span>Scan Serial Code</span>
                                     </button>
                                 </div>
-                                <div id="serial-scanner-viewport" class="relative w-full h-64 max-w-full mt-3 bg-slate-950 border-2 border-[#f97316]/70 rounded-xl overflow-hidden hidden items-center justify-center shadow-inner">
+                                <div id="serial-scanner-viewport" class="relative w-full min-h-[280px] sm:min-h-[340px] max-w-full mt-3 bg-slate-950 border-2 border-[#f97316]/70 rounded-xl overflow-hidden hidden items-center justify-center shadow-inner">
                                     <div id="serial-scanner-status" class="absolute z-20 left-3 right-3 bottom-3 rounded-lg bg-slate-900/80 px-3 py-2 text-center text-xs font-bold text-white">Initializing camera...</div>
                                 </div>
                                 <p id="serial-scanner-feedback" class="mt-2 text-xs font-medium text-slate-500 min-h-4"></p>

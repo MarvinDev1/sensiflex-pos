@@ -82,7 +82,7 @@ if (isset($_GET['success'])) {
                 <button type="button" class="toggle-btn" onclick="clearAuthAlerts(); register();">Register</button>
             </div>
             
-            <form id="login" class="input-group w-full max-w-full box-border<?php echo $active_form === 'login' ? ' active' : ''; ?>" action="auth.php" method="POST">
+            <form id="login" class="input-group w-full max-w-full box-border<?php echo $active_form === 'login' ? ' active' : ''; ?>" action="auth.php" method="POST" autocomplete="off">
                 <input type="hidden" name="login_action" value="1">
                 <div id="login-alert" class="alert-box my-3 w-full box-border <?php echo $login_type === 'success' ? 'success' : ($login_type === 'error' ? 'error' : ''); ?>" style="display: <?php echo !empty($login_message) ? 'block' : 'none'; ?>;">
                 <?php echo htmlspecialchars($login_message); ?>
@@ -104,13 +104,13 @@ if (isset($_GET['success'])) {
                 <button type="submit" class="submit-btn w-full max-w-full min-w-0 box-border">Log in</button>
             </form>
 
-            <form id="register" class="input-group w-full max-w-full box-border<?php echo $active_form === 'register' ? ' active' : ''; ?>" action="auth.php" method="POST">
+            <form id="register" class="input-group w-full max-w-full box-border<?php echo $active_form === 'register' ? ' active' : ''; ?>" action="auth.php" method="POST" autocomplete="off">
                 <input type="hidden" name="register_action" value="1">
                 <div id="register-alert" class="alert-box my-3 w-full box-border <?php echo $register_type === 'success' ? 'success' : ($register_type === 'error' ? 'error' : ''); ?>" style="display: <?php echo !empty($register_message) ? 'block' : 'none'; ?>;">
                 <?php echo htmlspecialchars($register_message); ?>
                 </div>
-                <input type="text" name="username" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Full Name or Username" required>
-                <input type="email" name="email" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Email Address (Verification required)" required>
+                <input type="text" name="username" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Username" required>
+                <input type="email" name="email" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Email Address" required>
                 <input type="tel" name="phone" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Phone Number" required>
 
                 <div class="password-container w-full max-w-full min-w-0 box-border">
@@ -125,16 +125,16 @@ if (isset($_GET['success'])) {
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn w-full max-w-full min-w-0 box-border">Register &amp; Verify Email</button>
+                <button type="submit" class="submit-btn w-full max-w-full min-w-0 box-border">Register</button>
             </form>
 
-            <form id="forgot" class="input-group w-full max-w-full box-border<?php echo $active_form === 'forgot' ? ' active' : ''; ?>" action="auth.php" method="POST">
+            <form id="forgot" class="input-group w-full max-w-full box-border<?php echo $active_form === 'forgot' ? ' active' : ''; ?>" action="auth.php" method="POST" autocomplete="off">
                 <input type="hidden" name="forgot_action" value="1">
                 <div id="forgot-alert" class="alert-box my-3 w-full box-border <?php echo $forgot_type === 'success' ? 'success' : ($forgot_type === 'error' ? 'error' : ''); ?>" style="display: <?php echo !empty($forgot_message) ? 'block' : 'none'; ?>;">
                     <?php echo htmlspecialchars($forgot_message); ?>
                 </div>
 
-                <input type="email" name="email" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Enter your registered email" required>
+                <input type="email" name="email" class="input-field w-full max-w-full min-w-0 box-border" placeholder="Enter your registered email" autocomplete="off" required>
 
                 <div class="remember-row flex flex-wrap gap-2 justify-between items-center w-full max-w-full min-w-0 box-border text-xs sm:text-sm">
                     <a href="#" class="min-w-0 ml-auto" onclick="clearAuthAlerts(); login(); return false;">Back to Log In</a>

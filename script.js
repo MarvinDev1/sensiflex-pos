@@ -3,7 +3,10 @@ var y = document.getElementById("register");
 var f = document.getElementById("forgot"); // FIX: Reference to the new forgot password form element
 var z = document.getElementById("btn");
 
-// FIX: Keep the password toggle available on any page that uses the same eye icon pattern, including reset_password.php.
+// 3-Step Password Eye Toggle (Mobile & Desktop):
+// Step 1: Initial load (password hidden, normal eye, no slash)
+// Step 2: First tap / reveal (password text, eye scales & brightens, no slash)
+// Step 3: Second tap / hide (password hidden, eye returns to normal, diagonal orange slash animates across)
 function togglePassword(fieldId, iconElement) {
     var passwordInput = document.getElementById(fieldId);
     if (!passwordInput || !iconElement) return;
@@ -11,14 +14,14 @@ function togglePassword(fieldId, iconElement) {
     var container = iconElement.parentElement;
 
     if (passwordInput.type === "password") {
-        // Step 1: reveal text and brighten/scale the eye.
+        // Step 2: reveal password text, brighten/scale the eye, no slash.
         passwordInput.type = "text";
         iconElement.classList.remove("slashed");
         iconElement.classList.add("eye-revealed");
         iconElement.setAttribute("aria-label", "Hide password");
         if (container) container.classList.remove("has-slash");
     } else {
-        // Step 2: hide text and animate the orange slash across the eye.
+        // Step 3: hide password text, return eye to normal, animate orange slash across.
         passwordInput.type = "password";
         iconElement.classList.remove("eye-revealed");
         iconElement.classList.add("slashed");
@@ -40,7 +43,7 @@ if (!x || !y || !f) {
 } else {
     function clearAuthAlerts() {
         document.querySelectorAll('.alert-box').forEach(function (alertBox) {
-            alertBox.classList.remove('error', 'success');
+            alertBox.classList.remove('error', 'success', 'is-visible');
             alertBox.style.display = 'none';
         });
     }
@@ -48,9 +51,18 @@ if (!x || !y || !f) {
 function showAlert(alertId, alertType) {
     var alertBox = document.getElementById(alertId);
     if (!alertBox) return;
-    alertBox.classList.remove('error', 'success');
-    alertBox.classList.add(alertType);
+    alertBox.classList.remove('error', 'success', 'is-visible');
     alertBox.style.display = 'block';
+    alertBox.classList.add(alertType);
+
+    // Re-trigger GPU-friendly transition (opacity and translateY(-4px) -> translateY(0) over 250ms)
+    alertBox.style.animation = 'none';
+    void alertBox.offsetHeight;
+    alertBox.style.animation = '';
+
+    requestAnimationFrame(function () {
+        alertBox.classList.add('is-visible');
+    });
 }
 
 function syncAuthAlertsFromUrl() {
@@ -120,6 +132,9 @@ function syncAuthAlertsFromUrl() {
 // FIX: Match the active form against the card's responsive inner padding.
 function login(){
     if (!x || !y || !f || !z) return;
+    resetSubmitLoading(x);
+    resetSubmitLoading(y);
+    if(f) resetSubmitLoading(f);
     setActiveForm(x);
     x.style.left = window.matchMedia('(max-width: 768px)').matches ? "0px" : "32px";
     y.style.left = "400px";
@@ -129,6 +144,9 @@ function login(){
 
 function register(){
     if (!x || !y || !f || !z) return;
+    resetSubmitLoading(x);
+    resetSubmitLoading(y);
+    if(f) resetSubmitLoading(f);
     setActiveForm(y);
     x.style.left = "-400px";
     y.style.left = window.matchMedia('(max-width: 768px)').matches ? "0px" : "32px";
@@ -141,6 +159,9 @@ function register(){
 // FIX: Added dedicated function to handle sliding into the Forgot Password view cleanly without overlapping.
 function showForgot(event){
     if (!x || !y || !f) return;
+    resetSubmitLoading(x);
+    resetSubmitLoading(y);
+    if(f) resetSubmitLoading(f);
     setActiveForm(f);
     if(event) event.preventDefault();
     x.style.left = "-400px";
@@ -153,10 +174,37 @@ function showForgot(event){
 // FIX: Add a small submit loading class to each auth form so the button pulses while the server responds.
 function setSubmitLoading(form) {
     const button = form.querySelector('.submit-btn');
-    if (!button) return;
+    if (!button || button.classList.contains('loading')) return false;
+
     button.classList.add('loading');
     button.disabled = true;
-    button.textContent = 'Please wait...';
+    button.setAttribute('aria-busy', 'true');
+    button.setAttribute('aria-label', 'Submitting');
+
+    const originalText = button.textContent.trim();
+    if (!button.getAttribute('data-original-label')) {
+        button.setAttribute('data-original-label', originalText);
+    }
+    button.innerHTML = '<span class="submit-btn-text">Please wait...</span>';
+    return true;
+}
+
+function resetSubmitLoading(buttonOrForm) {
+    if (!buttonOrForm) return;
+    const button = buttonOrForm.classList && buttonOrForm.classList.contains('submit-btn')
+        ? buttonOrForm
+        : buttonOrForm.querySelector('.submit-btn');
+    if (!button) return;
+
+    button.classList.remove('loading');
+    button.disabled = false;
+    button.removeAttribute('aria-busy');
+
+    const originalText = button.getAttribute('data-original-label');
+    if (originalText) {
+        button.innerHTML = '<span class="submit-btn-text">' + originalText + '</span>';
+        button.setAttribute('aria-label', originalText);
+    }
 }
 
 document.addEventListener('submit', function(event) {
@@ -462,6 +510,7 @@ function ensureQuaggaLoaded() {
 }
 
 function resetCameraScannerUI(viewport, btn) {
+    stopBarcodeDetectorFallback();
     cameraActive = false;
     if (viewport) viewport.classList.add('hidden');
     if (btn) btn.textContent = 'Start Live Camera Scanner';
@@ -838,12 +887,71 @@ function prepareCheckout() {
     document.getElementById('cart-items-json').value = JSON.stringify(activeCart);
 }
 
-// Password fields begin hidden with the normal eye icon and no slash.
-document.querySelectorAll('.eye-icon').forEach(function (iconElement) {
-    iconElement.classList.remove('slashed', 'eye-revealed');
-    iconElement.setAttribute('aria-label', 'Show password');
+// Step 1 (Initial load): Password fields begin hidden with the normal eye icon and no slash.
+function initPasswordEyeIcons() {
+    document.querySelectorAll('.eye-icon').forEach(function (iconElement) {
+        iconElement.classList.remove('slashed', 'eye-revealed');
+        iconElement.setAttribute('aria-label', 'Show password');
 
-    if (iconElement.parentElement) {
-        iconElement.parentElement.classList.remove('has-slash');
+        if (iconElement.parentElement) {
+            iconElement.parentElement.classList.remove('has-slash');
+        }
+    });
+}
+initPasswordEyeIcons();
+window.addEventListener('DOMContentLoaded', initPasswordEyeIcons);
+
+let barcodeDetectorLoop = null;
+
+async function startBarcodeDetectorFallback(viewport, input, feedback, onDetected) {
+    if (!('BarcodeDetector' in window)) return false;
+
+    try {
+        const detector = new window.BarcodeDetector({
+            formats: ['qr_code', 'code_128', 'code_39', 'ean_13', 'ean_8', 'upc_a', 'upc_e', 'codabar', 'itf']
+        });
+
+        const detectLoop = async function() {
+            if (!cameraActive && !serialScannerActive) return;
+            const video = viewport ? viewport.querySelector('video') : null;
+            if (!video || video.readyState < 2) {
+                barcodeDetectorLoop = window.requestAnimationFrame(detectLoop);
+                return;
+            }
+
+            try {
+                const codes = await detector.detect(video);
+                if (codes && codes.length) {
+                    const value = String(codes[0].rawValue || '').trim();
+                    if (value) {
+                        if (input) {
+                            input.value = value;
+                            input.dispatchEvent(new Event('input', { bubbles: true }));
+                            input.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                        if (feedback) feedback.textContent = 'Code detected: ' + value;
+                        if (typeof onDetected === 'function') onDetected(value);
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.warn('BarcodeDetector fallback failed:', error);
+            }
+
+            barcodeDetectorLoop = window.requestAnimationFrame(detectLoop);
+        };
+
+        barcodeDetectorLoop = window.requestAnimationFrame(detectLoop);
+        return true;
+    } catch (error) {
+        console.warn('BarcodeDetector unavailable:', error);
+        return false;
     }
-});
+}
+
+function stopBarcodeDetectorFallback() {
+    if (barcodeDetectorLoop) {
+        window.cancelAnimationFrame(barcodeDetectorLoop);
+        barcodeDetectorLoop = null;
+    }
+}

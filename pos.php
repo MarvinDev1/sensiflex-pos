@@ -103,7 +103,7 @@ try {
                                 Start Live Camera Scanner
                             </button>
                         </div>
-                        <div id="interactive" class="viewport relative w-full h-48 bg-slate-100 border-2 border-[#f97316]/70 rounded-xl overflow-hidden hidden flex items-center justify-center shadow-inner">
+                        <div id="interactive" class="viewport relative w-full min-h-[280px] sm:min-h-[340px] max-w-full bg-slate-100 border-2 border-[#f97316]/70 rounded-xl overflow-hidden hidden flex items-center justify-center shadow-inner">
                             <div class="text-xs text-slate-500">Initializing Camera Stream...</div>
                         </div>
                         <div id="lookup-feedback" class="text-sm text-slate-600 font-medium"></div>

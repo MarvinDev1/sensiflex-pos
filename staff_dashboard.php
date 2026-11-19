@@ -323,7 +323,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['checkout_action'])) {
                             <span class="text-xs text-slate-500 font-medium">Or use phone/laptop camera scanner:</span>
                             <button type="button" onclick="toggleCameraScanner()" id="cam-toggle-btn" class="bg-slate-100 hover:bg-slate-200 text-xs text-slate-700 font-bold px-3 py-1.5 rounded-lg transition border border-slate-200 shadow-sm">Start Live Camera Scanner</button>
                         </div>
-                        <div id="interactive" class="viewport relative w-full h-48 bg-slate-100 border border-slate-200 rounded-xl overflow-hidden hidden flex items-center justify-center shadow-inner">
+                        <div id="interactive" class="viewport relative w-full min-h-[280px] sm:min-h-[340px] max-w-full bg-slate-100 border border-slate-200 rounded-xl overflow-hidden hidden flex items-center justify-center shadow-inner">
                             <div class="text-xs text-slate-500">Initializing Camera Stream...</div>
                         </div>
                     </div>
